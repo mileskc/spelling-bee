@@ -1,16 +1,21 @@
 .hive {
-  /* width: 90vw; */
-  width: 500px;
-  height: 500px;
+  margin-top: 10%;
+  margin-left: 10%;
+  width: 90vw;
+  max-width: 330px;
+  height: 330px;
+  position: relative;
 }
 
 .hive-cell {
   position: absolute;
   top: calc(100% / 3);
   left: 30%;
-  width: 10%;
+  width: 40%;
   height: calc(100% / 3);
 }
+
+/* Cell positions */
 
 .hive-cell:nth-child(1) {
   transform: translate(0,0);
@@ -33,6 +38,8 @@
 .hive-cell:nth-child(7) {
   transform: translate(-75%,50%);
 }
+
+/* Cell fill */
 
 .hex-cell {
   fill: #e6e6e6;
