@@ -1,14 +1,17 @@
 .hive {
-  /* width: 90vw; */
-  width: 500px;
-  height: 500px;
+  margin-top: 10%;
+  margin-left: 10%;
+  width: 90vw;
+  max-width: 330px;
+  height: 330px;
+  position: relative;
 }
 
 .hive-cell {
   position: absolute;
   top: calc(100% / 3);
   left: 30%;
-  width: 10%;
+  width: 40%;
   height: calc(100% / 3);
 }
 
