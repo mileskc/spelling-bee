@@ -1,11 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
+import TitleBar from './components/TitleBar'
+import Hive from './components/Hive'
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-     <h1>Spelling Bee</h1>
+     <TitleBar/>
+     <Hive/>
     </div>
   );
 }

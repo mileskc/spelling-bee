@@ -1,17 +1,26 @@
 import React from 'react';
+import '../styles/TitleBar.css'
 
 const TitleBar = () => {
 
   
     let today = new Date()
     let day = today.getDate()
-    let month = today.getMonth()
+    let month = today.toLocaleString('default', { month: 'long' })
     let year = today.getFullYear()
+    console.log(today)
 
   return (
-    <h2>
-      <em>Spelling Bee</em>
-      <span>`${month} ${day}, ${year}`</span>
-    </h2>
+    <div>
+      <h2 className = "title">
+        <strong>Spelling Bee </strong>
+        <span>{month} {day}, {year}</span>
+      </h2>
+      <div className="nav">
+
+      </div>
+    </div>
   )
 }
+
+export default TitleBar
