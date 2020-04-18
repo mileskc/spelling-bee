@@ -2,6 +2,7 @@ import React from 'react';
 import '../styles/Hive.css'
 import wordData from '../data.js'
 import Shuffle from './Shuffle'
+import InputBar from './InputBar'
 
 
 class Hive extends React.Component{
@@ -40,6 +41,7 @@ class Hive extends React.Component{
   render() {
   return(
     <div className = "hive">
+      <InputBar/>
       <svg className = "hive-cell">
         <polygon className="hex-cell middle" points = "0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
         </polygon>
