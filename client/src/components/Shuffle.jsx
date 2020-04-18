@@ -3,7 +3,7 @@ import React from 'react'
 const Shuffle = (props) => {
   return(
     <div>
-      <button onClick={props.shuffleLetters()}>swap</button>
+      <button onClick={props.handleShuffle}>swap</button>
     </div>
   )
 }

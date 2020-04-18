@@ -18,17 +18,26 @@ class Hive extends React.Component{
   }
 
   shuffleLetters = () => {
-    this.setState = {
-      letters: shuffle(this.state.letters)
+    let outerLetters = [...wordData[0].letters]
+    outerLetters.shift()
+    for(let i = 0; i < outerLetters.length; i++) {
+      let j = Math.floor(Math.random() * Math.floor(outerLetters.length))
+      let temp = outerLetters[i]
+      outerLetters[i] = outerLetters[j]
+      outerLetters[j] = temp
+     
     }
+    this.setState({
+      letters: outerLetters
+    })
   }
-  render() {
-  // let centerLetter = wordData[0].letters[0]
-  // let letters = [...wordData[0].letters]
-  // letters.shift()
-  
- 
 
+  handleShuffle = () => {
+    this.shuffleLetters()
+    console.log(this.state.letters)
+  }
+
+  render() {
   return(
     <div className = "hive">
       <svg className = "hive-cell">
@@ -67,7 +76,7 @@ class Hive extends React.Component{
         <text fill="black" x="50" y="50" dy="10">{this.state.letters[5]}</text>
       </svg>
 
-      <Shuffle shuffle={this.shuffleLetters()}/>
+      <Shuffle handleShuffle={this.handleShuffle}/>
     </div>
   )
   }
