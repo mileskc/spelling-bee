@@ -27,12 +27,18 @@ class InputBar extends React.Component {
   checkValidity = () => {
     // event.preventDefault()
     // console.log(this.state.currentWord)
-    if (wordData[0].wordList.includes(this.state.currentWord)) {
+    if (wordData[0].wordList.includes(this.state.currentWord)&&!correctWords.includes(this.state.currentWord)) {
       correctWords.push(this.state.currentWord)
       this.setState({
         isValid:true,
         correctWords: correctWords
       })
+    } else if (correctWords.includes(this.state.currentWord)) {
+      alert("Already found")
+    } else if (this.state.currentWord.length < 4){
+      alert("Too short")
+    } else if (!wordData[0].wordList.includes(this.state.currentWord)) {
+      alert("Not in word list")
     }
     console.log(this.state.correctWords)
     // console.log("called")
