@@ -1,5 +1,5 @@
 import React from 'react'
-import wordData from '../data'
+import wordData from '../data.js'
 import '../styles/InputBar.css'
 
 class InputBar extends React.Component {
@@ -16,13 +16,14 @@ class InputBar extends React.Component {
       currentWord: event.target.value
     })
 
-    console.log(this.state.currentWord)
+    // console.log(this.state.currentWord)
   }
 
   handleSubmit = () => {
     // event.preventDefault()
+    // console.log(this.state.currentWord)
     wordData[0].wordList.includes(this.state.currentWord)? console.log("yes") : console.log("no")
-    console.log("called")
+    // console.log("called")
   }
 
   render() {
