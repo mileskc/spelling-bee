@@ -78,7 +78,7 @@ class Hive extends React.Component{
         <text fill="black" x="50" y="50" dy="10">{this.state.letters[5]}</text>
       </svg>
 
-      <Shuffle handleShuffle={this.handleShuffle}/>
+      <Shuffle centerLetter={this.state.centerLetter} handleShuffle={this.handleShuffle}/>
     </div>
     </div>
   )
