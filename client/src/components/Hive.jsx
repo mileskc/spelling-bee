@@ -2,6 +2,7 @@ import React from 'react';
 import '../styles/Hive.css'
 import wordData from '../data.js'
 import Shuffle from './Shuffle'
+import InputBar from './InputBar'
 
 
 class Hive extends React.Component{
@@ -9,7 +10,6 @@ class Hive extends React.Component{
   constructor(props) {
     super()
     let outerLetters = [...wordData[0].letters]
-    console.log(outerLetters)
     outerLetters.shift()
     this.state={
       centerLetter: [...wordData[0].letters[0]],
@@ -34,11 +34,13 @@ class Hive extends React.Component{
 
   handleShuffle = () => {
     this.shuffleLetters()
-    console.log(this.state.letters)
+    // console.log(this.state.letters)
   }
 
   render() {
   return(
+    <div>
+      <InputBar/>
     <div className = "hive">
       <svg className = "hive-cell">
         <polygon className="hex-cell middle" points = "0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
@@ -77,6 +79,7 @@ class Hive extends React.Component{
       </svg>
 
       <Shuffle handleShuffle={this.handleShuffle}/>
+    </div>
     </div>
   )
   }
