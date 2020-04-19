@@ -7,23 +7,33 @@ class InputBar extends React.Component {
   constructor(props) {
     super()
     this.state={
-      currentWord: ""
+      currentWord: "",
+      isValid: false
     }
   }
 
   handleChange = (event) => {
     this.setState({
+      isValid: false,
       currentWord: event.target.value
     })
 
     // console.log(this.state.currentWord)
   }
 
-  handleSubmit = () => {
+  checkValidity = () => {
     // event.preventDefault()
     // console.log(this.state.currentWord)
-    wordData[0].wordList.includes(this.state.currentWord)? console.log("yes") : console.log("no")
+    if (wordData[0].wordList.includes(this.state.currentWord)) {
+      this.setState({
+        isValid:true
+      })
+    }
     // console.log("called")
+  }
+
+  handleSubmit = () => {
+    this.checkValidity()
   }
 
   render() {
@@ -31,8 +41,9 @@ class InputBar extends React.Component {
       <div>
         {/* <form > */}
           <input onChange={this.handleChange} name="currentWord" value={this.state.currentWord}/>
-          <button onClick={this.handleSubmit}>Enter</button>
+          <button onClick={this.checkValidity}>Enter</button>
         {/* </form> */}
+        {this.state.isValid ? <p>{this.state.currentWord}</p>: null}
       </div>
     )
   }
