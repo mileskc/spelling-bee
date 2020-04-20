@@ -37,13 +37,13 @@ class InputBar extends React.Component {
       alert("Already found")
     } else if (this.state.currentWord.length < 4){
       alert("Too short")
-    } else if (!this.state.currentWord.includes(this.props.centerLetter)) {
+    } else if (!this.state.currentWord.toLowerCase().includes(this.props.centerLetter)) {
       alert("Missing Center Letter")
     } else if (!wordData[0].wordList.includes(this.state.currentWord)) {
       alert("Not in word list")
     }
-    console.log(this.state.correctWords)
-    // console.log("called")
+    console.log(`center letter is ${this.props.centerLetter}`)
+    console.log("called")
   }
 
   handleSubmit = () => {
