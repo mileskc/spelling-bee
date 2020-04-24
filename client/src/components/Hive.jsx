@@ -89,6 +89,12 @@ class Hive extends React.Component {
     console.log(`isBackspace ${this.state.isBackspace}`)
   }
 
+  handleDeleteButton = () => {
+    this.setState({
+      currentWord: this.state.currentWord.slice(0, this.state.currentWord.length-1)
+    })
+  }
+
   checkValidity = () => {
     // event.preventDefault()
     // console.log(this.state.currentWord)
@@ -162,6 +168,7 @@ class Hive extends React.Component {
         <input id={this.state.currentLetter} onChange={this.handleChange} 
         onKeyDown={this.handleDelete}name="currentWord" value={this.state.currentWord}/>
           <button onClick={this.checkValidity}>Enter</button>
+          <button onClick={this.handleDeleteButton}>Delete</button>
           {this.state.correctWords.map(word=>{
          return  <p>{word}</p>
         })}
