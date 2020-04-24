@@ -9,18 +9,18 @@ class InputBar extends React.Component {
   constructor(props) {
     super()
     this.state={
-      currentWord: "",
-      isValid: false,
+      currentWord: props.currWord,
       correctWords: correctWords
     }
   }
 
   handleChange = (event) => {
     this.setState({
-      isValid: false,
-      currentWord: event.target.value
+      currentWord: this.state.currWord + event.target.value
     })
-
+    console.log(`input currWord props ${this.props.currWord}`)
+    console.log('input handle change called')
+    console.log(`inp current word state is ${this.state.currentWord}`)
     // console.log(this.state.currentWord)
   }
 
@@ -43,7 +43,7 @@ class InputBar extends React.Component {
       alert("Not in word list")
     }
     console.log(`center letter is ${this.props.centerLetter}`)
-    console.log("called")
+    console.log("check validity called")
   }
 
   handleSubmit = () => {
@@ -57,7 +57,6 @@ class InputBar extends React.Component {
           <input onChange={this.handleChange} name="currentWord" value={this.state.currentWord}/>
           <button onClick={this.checkValidity}>Enter</button>
         {/* </form> */}
-        {/* {this.state.isValid ? <p>{this.state.currentWord}</p>: null} */}
         {this.state.correctWords.map(word=>{
          return  <p>{word}</p>
         })}

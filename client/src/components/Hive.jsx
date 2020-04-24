@@ -14,7 +14,10 @@ class Hive extends React.Component {
     outerLetters.shift()
     this.state = {
       centerLetter: [...wordData[0].letters[0]],
-      letters: [...outerLetters]
+      letters: [...outerLetters],
+      currentWord: "",
+      currentLetter: '',
+      isClicked: false
     }
   }
 
@@ -36,6 +39,18 @@ class Hive extends React.Component {
   handleShuffle = () => {
     this.shuffleLetters()
     // console.log(this.state.letters)
+  }
+
+  handleClick = (event) => {
+    this.setState({
+      currentWord: this.state.currentWord + event.target.id,
+      currentLetter: event.target.id,
+      isClicked: true
+    })
+    console.log("handle click called")
+    console.log(`hive currword ${this.state.currentWord}`)
+    console.log(`hive target id ${event.target.id}`)
+    // console.log(event.target.tagName)
   }
 
   render() {
@@ -71,15 +86,15 @@ class Hive extends React.Component {
 
 
       <div>
-        <InputBar centerLetter={this.state.centerLetter}/>
+        <InputBar currLetter = {this.state.currentLetter} currWord = {this.state.currentWord} centerLetter={this.state.centerLetter}/>
         <div className="hive">
           <svg className="hive-cell">
-            <polygon className="hex-cell middle" points="0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
+            <polygon pointer-events="none" className="hex-cell middle" points="0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
             </polygon>
-            <text fill="black" x="50" y="50" dy="10">{this.state.centerLetter}</text>
+            <text id={this.state.centerLetter}pointer-events="fill" onClick={this.handleClick}fill="black" x="50" y="50" dy="10">{this.state.centerLetter}</text>
           </svg>
           {hiveCellData.map(cell => {
-            return(<HiveCell point={cell.point} letter={cell.letter} />)}
+            return(<HiveCell handleClick={this.handleClick} point={cell.point} letter={cell.letter} />)}
           )}
           {/* <svg className = "hive-cell">
         <polygon className="hex-cell" points = "0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
