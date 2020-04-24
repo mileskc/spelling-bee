@@ -61,7 +61,6 @@ class Hive extends React.Component {
     console.log(`change isBackspace ${this.state.isBackspace}`)
     if (this.state.isBackspace===true) {
       this.setState({
-        // currentWord: this.state.currentWord - this.state.currentWord[this.state.currentWord.length-1],
         currentWord: this.state.currentWord.slice(0, this.state.currentWord.length-1),
         isBackspace:false
       })
@@ -76,7 +75,6 @@ class Hive extends React.Component {
   }
     console.log(this.state.currentWord)
     console.log(`target id ${event.target.id}`)
-    console.log(`key ${event.key}`)
     
   }
 
@@ -171,7 +169,7 @@ class Hive extends React.Component {
           <svg className="hive-cell">
             <polygon className="hex-cell middle" points="0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
             </polygon>
-            <text fill="black" x="50" y="50" dy="10">{this.state.centerLetter}</text>
+            <text id={this.state.centerLetter}onClick={this.handleClick}fill="black" x="50" y="50" dy="10">{this.state.centerLetter}</text>
           </svg>
           {hiveCellData.map(cell => {
             return(<HiveCell handleClick={this.handleClick} point={cell.point} letter={cell.letter} />)}
