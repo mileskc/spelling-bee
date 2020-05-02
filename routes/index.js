@@ -9,6 +9,7 @@ router.post('/sign-up', controllers.signUp)
 router.post('/sign-in', controllers.signIn)
 router.get('/verify-user', controllers.verifyUser)
 router.post('/change-pw', controllers.changePassword)
+router.get('/users', controllers.getAllUsers)
 
 router.get('/games', controllers.getAllGames)
 router.post('/games', restrict, controllers.createGame)

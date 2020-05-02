@@ -21,16 +21,16 @@ const signUp = async(req, res) => {
 
     await user.save()
 
-    const payload = ({
+    const payload = {
       id: user._id,
       username: user.username,
       email: user.email
-    })
+    }
 
     const token = jwt.sign(payload, TOKEN_KEY)
     return res.status(201).json({user, token})
   } catch (error) {
-    return res.status(500).json({error: error.message})
+    return res.status(400).json({error: error.message})
   }
 }
 
@@ -39,11 +39,11 @@ const signIn = async (req,res) => {
     const {username, password} = req.body
     const user = await User.findOne({username:username})
     if (await bcrypt.compare(password, user.password_digest)) {
-      const payload = ({
+      const payload = {
         id: user._id,
         username: user.username,
         email: user.email
-      })
+      }
       const token = jwt.sign(payload, TOKEN_KEY)
     return res.status(201).json({user, token})
     } else {
@@ -83,6 +83,15 @@ const changePassword = async(req,res) => {
   }catch(error) {
     console.log("Something went wrong trying to change the password")
     return res.status(400).json({error: error.message})
+  }
+}
+
+const getAllUsers = async(req,res) => {
+  try {
+    const users = await User.find()
+    return res.status(200).json({users})
+  } catch (error) {
+    return res.status(500).json({error: error.message})
   }
 }
 
@@ -155,6 +164,7 @@ module.exports = {
   signIn,
   verifyUser,
   changePassword,
+  getAllUsers,
   createGame,
   getAllGames,
   getGameById,
