@@ -1,17 +1,66 @@
 import React from 'react';
-import TitleBar from './components/TitleBar'
+// import TitleBar from './components/TitleBar'
 import Hive from './components/Hive'
+import { Route, Switch, Redirect } from 'react-router-dom';
+import SignUp from './components/SignUp';
+import SignIn from './components/SignIn';
 import Home from './components/Home'
 import './App.css';
+import { verifyUser } from './services/auth'
 
-function App() {
-  return (
-    <div className="App">
-     {/* <TitleBar/>
+class App extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      user: null
+    }
+  }
+
+  async componentDidMount() {
+    const res = await verifyUser();
+    if (res.user) {
+      this.setUser(res.user);
+    }
+  }
+
+  setUser = (user) =>
+    this.setState({
+      user: {
+        ...user,
+        id: user.id || user._id,
+      },
+    });
+
+  clearUser = () => this.setState({ user: null });
+
+  render() {
+    const { setUser, clearUser } = this;
+    const { user } = this.state;
+    return (
+      <div className="App">
+        <Switch>
+          <Route exact path="/" render={props => <Home user={user} />} />
+          <Route
+            exact
+            path="/sign-up"
+            render={(props) => (
+              <SignUp setUser={setUser} history={props.history} />
+            )}
+          />
+          <Route
+            exact
+            path="/sign-in"
+            render={(props) => (
+              <SignIn setUser={setUser} history={props.history} />
+            )}
+          />
+        </Switch>
+        {/* <TitleBar/>
      <Hive/> */}
-     <Home/>
-    </div>
-  );
+        {/* <Home/> */}
+      </div>
+    );
+  }
 }
 
 export default App;

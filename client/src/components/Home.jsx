@@ -7,8 +7,8 @@ const Home = () => {
   return(
     <div>
       <Link to="/sign-up">Sign Up</Link>
-      <Routes/>
-      {/* <Hive/> */}
+      {/* <Routes/> */}
+      <Hive/>
     </div>
   )
 }
