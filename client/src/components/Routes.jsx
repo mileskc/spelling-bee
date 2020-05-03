@@ -2,13 +2,18 @@ import React from 'react'
 import Home from './Hive'
 import { Route, Switch } from 'react-router-dom'
 import SignUp from './SignUp'
+import SignIn from './SignIn'
 
-const Routes = ({ user, setUser, clearUser }) => (
+const Routes = ({setUser}) => (
   <Switch>
     <Route
       exact
       path="/"
       render={props => (<Home {...props} />)}
+    />
+    <Route
+      path="/sign-in"
+      render={props => <SignIn {...props} setUser={setUser} />}
     />
     <Route
       path="/sign-up"

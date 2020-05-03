@@ -1,44 +1,41 @@
 import React, { Component } from 'react'
-import { signUp, signIn } from '../services/auth'
+import { signIn } from '../services/auth'
 
-class SignUp extends Component {
+class SignIn extends Component {
   constructor() {
     super()
 
     this.state = {
       username: '',
-      email: '',
       password: '',
-      passwordConfirmation: '',
       isError: false,
       errorMsg: ''
     }
   }
 
-  handleChange = event =>
+  handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value,
       isError: false,
       errorMsg: ''
     })
+  }
 
-  onSignUp = event => {
+  onSignIn = event => {
     event.preventDefault()
 
     const { history, setUser } = this.props
 
-    signUp(this.state)
-      .then(() => signIn(this.state))
+    signIn(this.state)
       .then(res => setUser(res.user))
       .then(() => history.push('/'))
       .catch(error => {
         console.error(error)
         this.setState({
-          email: '',
-          password: '',
-          passwordConfirmation: '',
           isError: true,
-          errorMsg: 'Sign Up Details Invalid'
+          errorMsg: 'Invalid Credentials',
+          username: '',
+          password: ''
         })
       })
   }
@@ -57,29 +54,20 @@ class SignUp extends Component {
   }
 
   render() {
-    const { email, username, password, passwordConfirmation } = this.state
+    const { username, password } = this.state
 
     return (
       <div className="row">
         <div className="form-container">
-          <h3>Sign Up</h3>
-          <form onSubmit={this.onSignUp}>
+          <h3>Sign In</h3>
+          <form onSubmit={this.onSignIn}>
             <label>Username</label>
             <input
               required
               type="text"
               name="username"
               value={username}
-              placeholder="Enter username"
-              onChange={this.handleChange}
-            />
-            <label>Email address</label>
-            <input
-              required
-              type="email"
-              name="email"
-              value={email}
-              placeholder="Enter email"
+              placeholder="Enter Username"
               onChange={this.handleChange}
             />
             <label>Password</label>
@@ -91,15 +79,6 @@ class SignUp extends Component {
               placeholder="Password"
               onChange={this.handleChange}
             />
-            <label>Password Confirmation</label>
-            <input
-              required
-              name="passwordConfirmation"
-              value={passwordConfirmation}
-              type="password"
-              placeholder="Confirm Password"
-              onChange={this.handleChange}
-            />
             {this.renderError()}
           </form>
         </div>
@@ -108,4 +87,4 @@ class SignUp extends Component {
   }
 }
 
-export default SignUp
+export default SignIn
