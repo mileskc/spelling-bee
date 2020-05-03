@@ -1,6 +1,6 @@
 module.exports = (req,res,next) => {
   const jwt = require('jsonwebtoken')
-  const TOKEN_KEY = ''
+  const TOKEN_KEY = 'nytspellingbeegame'
   try{
     const token = res.headers.authorization.split(" ")[1]
     const data = jwt.verify(token, TOKEN_KEY)
