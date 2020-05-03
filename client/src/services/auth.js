@@ -1,4 +1,4 @@
-import api from './apiConfig'
+import api from './apiConfiguration'
 
 export const signUp = async credentials => {
     try {

@@ -1,4 +1,5 @@
 import React from 'react'
+import Home from './Hive'
 import { Route, Switch } from 'react-router-dom'
 import SignUp from './SignUp'
 
@@ -10,8 +11,8 @@ const Routes = ({ user, setUser, clearUser }) => (
       render={props => (<Home {...props} />)}
     />
     <Route
-      path="/sign-in"
-      render={props => <SignIn {...props} setUser={setUser} />}
+      path="/sign-up"
+      render={props => <SignUp {...props} setUser={setUser} />}
     />
   </Switch>
 )
