@@ -5,6 +5,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import Home from './components/Home'
+import GameList from './components/GameList'
 import './App.css';
 import { verifyUser } from './services/auth'
 
@@ -52,6 +53,13 @@ class App extends React.Component {
             path="/sign-in"
             render={(props) => (
               <SignIn setUser={setUser} history={props.history} />
+            )}
+          />
+          <Route
+            exact
+            path="/game-list"
+            render={(props) => (
+              <GameList setUser={setUser} history={props.history} />
             )}
           />
         </Switch>

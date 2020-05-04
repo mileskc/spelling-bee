@@ -1,6 +1,7 @@
 import React from 'react';
+import axios from 'axios'
 import '../styles/Hive.css'
-import wordData from '../data.js'
+// import wordData from '../data.js'
 import Shuffle from './Shuffle'
 // import InputBar from './InputBar'
 import HiveCell from './HiveCell';
@@ -12,23 +13,43 @@ class Hive extends React.Component {
   
   constructor(props) {
     super()
-    let outerLetters = [...wordData[0].letters]
-    outerLetters.shift()
+    // let outerLetters = [...wordData[0].letters]
+    // outerLetters.shift()
     this.state = {
-      centerLetter: [...wordData[0].letters[0]],
-      letters: [...outerLetters],
+      // centerLetter: [...wordData[0].letters[0]],
+      // letters: [...outerLetters],
+      centerLetter: '',
+      letters: [],
       currentWord: '',
       currentLetter: '',
       correctWords: correctWords,
-      isBackspace: false
+      isBackspace: false,
+      currGame: 0
     }
   }
 
-  
+  componentDidMount = () => {
+    this.getAllGames()
+  }
+
+  getAllGames = async () => {
+    const resp = await axios.get('http://localhost:3000/api/games')
+    let outerLetters = [...resp.data.games[0].letters]
+    let centerLetter = outerLetters.shift()
+    this.setState({
+      // centerLetter: resp.data.games[0].letters[0]
+      centerLetter: centerLetter,
+      letters: outerLetters,
+      currGame: resp.data.games[0]
+    })
+    return resp
+  }
 
   shuffleLetters = () => {
-    let outerLetters = [...wordData[0].letters]
-    outerLetters.shift()
+    // let outerLetters = [...wordData[0].letters]
+    // outerLetters.shift()
+    let outerLetters = [...this.state.letters]
+
     for (let i = 0; i < outerLetters.length; i++) {
       let j = Math.floor(Math.random() * Math.floor(outerLetters.length))
       let temp = outerLetters[i]
@@ -96,9 +117,10 @@ class Hive extends React.Component {
   }
 
   checkValidity = () => {
+    
     // event.preventDefault()
     // console.log(this.state.currentWord)
-    if (wordData[0].wordList.includes(this.state.currentWord)&&!correctWords.includes(this.state.currentWord)) {
+    if (this.state.currGame.wordList.includes(this.state.currentWord)&&!correctWords.includes(this.state.currentWord)) {
       correctWords.push(this.state.currentWord)
       this.setState({
         isValid:true,
@@ -120,7 +142,7 @@ class Hive extends React.Component {
       this.setState({
         currentWord: ''
       })
-    } else if (!wordData[0].wordList.includes(this.state.currentWord)) {
+    } else if (!this.state.currGame.wordList.includes(this.state.currentWord)) {
       alert("Not in word list")
       this.setState({
         currentWord: ''
