@@ -1,6 +1,7 @@
 import React from 'react';
+import axios from 'axios'
 import '../styles/Hive.css'
-import wordData from '../data.js'
+// import wordData from '../data.js'
 import Shuffle from './Shuffle'
 // import InputBar from './InputBar'
 import HiveCell from './HiveCell';
@@ -12,23 +13,43 @@ class Hive extends React.Component {
   
   constructor(props) {
     super()
-    let outerLetters = [...wordData[0].letters]
-    outerLetters.shift()
+    // let outerLetters = [...wordData[0].letters]
+    // outerLetters.shift()
     this.state = {
-      centerLetter: [...wordData[0].letters[0]],
-      letters: [...outerLetters],
+      // centerLetter: [...wordData[0].letters[0]],
+      // letters: [...outerLetters],
+      centerLetter: '',
+      letters: [],
       currentWord: '',
       currentLetter: '',
       correctWords: correctWords,
-      isBackspace: false
+      isBackspace: false,
+      currGame: {}
     }
   }
 
-  
+  componentDidMount = () => {
+    this.getAllGames()
+  }
+
+  getAllGames = async () => {
+    const resp = await axios.get('http://localhost:3000/api/games')
+    let outerLetters = [...resp.data.games[0].letters]
+    let centerLetter = outerLetters.shift()
+    this.setState({
+      // centerLetter: resp.data.games[0].letters[0]
+      centerLetter: centerLetter,
+      letters: outerLetters,
+      currGame: resp.data.games[0]
+    })
+    return resp
+  }
 
   shuffleLetters = () => {
-    let outerLetters = [...wordData[0].letters]
-    outerLetters.shift()
+    // let outerLetters = [...wordData[0].letters]
+    // outerLetters.shift()
+    let outerLetters = [...this.state.letters]
+
     for (let i = 0; i < outerLetters.length; i++) {
       let j = Math.floor(Math.random() * Math.floor(outerLetters.length))
       let temp = outerLetters[i]
@@ -96,9 +117,10 @@ class Hive extends React.Component {
   }
 
   checkValidity = () => {
+    
     // event.preventDefault()
     // console.log(this.state.currentWord)
-    if (wordData[0].wordList.includes(this.state.currentWord)&&!correctWords.includes(this.state.currentWord)) {
+    if (this.state.currGame.wordList.includes(this.state.currentWord)&&!correctWords.includes(this.state.currentWord)) {
       correctWords.push(this.state.currentWord)
       this.setState({
         isValid:true,
@@ -120,7 +142,7 @@ class Hive extends React.Component {
       this.setState({
         currentWord: ''
       })
-    } else if (!wordData[0].wordList.includes(this.state.currentWord)) {
+    } else if (!this.state.currGame.wordList.includes(this.state.currentWord)) {
       alert("Not in word list")
       this.setState({
         currentWord: ''
@@ -137,7 +159,7 @@ class Hive extends React.Component {
   }
 
   render() {
-    const hiveCellData = [
+     const hiveCellData = [
       {
         point: "0,52 30,0 90,0 120,52 90,104 30,104",
         letter: this.state.letters[0]
@@ -164,7 +186,8 @@ class Hive extends React.Component {
       }
     ]
     return (
-      <div>
+      <>
+      
         <input id={this.state.currentLetter} onChange={this.handleChange} 
         onKeyDown={this.handleDelete}name="currentWord" value={this.state.currentWord}/>
           <button onClick={this.checkValidity}>Enter</button>
@@ -172,6 +195,7 @@ class Hive extends React.Component {
           {this.state.correctWords.map(word=>{
          return  <p>{word}</p>
         })}
+         <Shuffle centerLetter={this.state.centerLetter} handleShuffle={this.handleShuffle} />
         <div className="hive">
           <svg className="hive-cell">
             <polygon className="hex-cell middle" points="0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
@@ -212,9 +236,9 @@ class Hive extends React.Component {
         <text fill="black" x="50" y="50" dy="10">{this.state.letters[5]}</text>
       </svg> */}
 
-          <Shuffle centerLetter={this.state.centerLetter} handleShuffle={this.handleShuffle} />
+         
         </div>
-      </div>
+      </>
     )
   }
 }

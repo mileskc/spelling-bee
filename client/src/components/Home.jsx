@@ -1,6 +1,6 @@
 import React from 'react'
 import Hive from './Hive'
-import Routes from './Routes'
+// import Routes from './Routes'
 import {Link} from 'react-router-dom'
 
 const Home = () => {
