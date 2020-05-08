@@ -29,21 +29,37 @@ class Hive extends React.Component {
   }
 
   componentDidMount = () => {
-    this.getAllGames()
+    // this.getAllGames()
+    this.getGame()
+    console.log("get game called")
   }
 
-  getAllGames = async () => {
-    const resp = await axios.get('http://localhost:3000/api/games')
-    let outerLetters = [...resp.data.games[0].letters]
+  getGame = async () => {
+    const gameNum = this.props.match.params.id
+    const resp = await axios.get(`http://localhost:3000/api/games/${gameNum}`)
+    let outerLetters = [...resp.data.game.letters]
     let centerLetter = outerLetters.shift()
     this.setState({
-      // centerLetter: resp.data.games[0].letters[0]
       centerLetter: centerLetter,
       letters: outerLetters,
-      currGame: resp.data.games[0]
+      currGame: resp.data.game
     })
+    console.log(`mount ${resp}`)
     return resp
   }
+
+  // getAllGames = async () => {
+  //   const resp = await axios.get('http://localhost:3000/api/games')
+  //   let outerLetters = [...resp.data.games[0].letters]
+  //   let centerLetter = outerLetters.shift()
+  //   this.setState({
+  //     // centerLetter: resp.data.games[0].letters[0]
+  //     centerLetter: centerLetter,
+  //     letters: outerLetters,
+  //     // currGame: resp.data.games[0]
+  //   })
+  //   return resp
+  // }
 
   shuffleLetters = () => {
     // let outerLetters = [...wordData[0].letters]
