@@ -120,6 +120,20 @@ const getGameById = async (req,res) => {
   }
 }
 
+const getGameByNum = async (req,res) => {
+  try{
+    const {id} = req.params
+    const game = await Game.findOne({gameNum:id})
+    if (game) {
+      return res.status(200).json({game})
+    }
+    return res.status(404).send('Game with the specified ID does not exist')
+  }catch{
+    return res.status(500).json({error: error.message})
+  }
+}
+
+
 const updateGame = async(req,res) => {
   try{
     const {id} = req.params
@@ -158,6 +172,7 @@ module.exports = {
   createGame,
   getAllGames,
   getGameById,
+  getGameByNum,
   updateGame,
   deleteGame
 }

@@ -13,7 +13,7 @@ router.post('/change-pw', controllers.changePassword)
 router.get('/games', controllers.getAllGames)
 router.post('/games', restrict, controllers.createGame)
 
-router.get('/games/:id', controllers.getGameById)
+router.get('/games/:id', controllers.getGameByNum)
 
 router.put('/games/:id', restrict, controllers.updateGame)
 

@@ -8,7 +8,7 @@ const Home = () => {
     <div>
       <Link to="/sign-up">Sign Up</Link>
       {/* <Routes/> */}
-      <Hive/>
+      {/* <Hive/> */}
     </div>
   )
 }
