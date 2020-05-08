@@ -1,3 +1,7 @@
 hr {
   color: gray;
 }
+
+.swapButton {
+  offset-position: -200px;
+}

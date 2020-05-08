@@ -59,7 +59,14 @@ class App extends React.Component {
             exact
             path="/game-list"
             render={(props) => (
-              <GameList setUser={setUser} history={props.history} />
+              <GameList user={user} history={props.history} />
+            )}
+          />
+          <Route
+            exact
+            path="/game-list/:id"
+            render={(props) => (
+              <Hive {...props} history={props.history} user={user} />
             )}
           />
         </Switch>

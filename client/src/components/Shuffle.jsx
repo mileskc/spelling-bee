@@ -1,10 +1,11 @@
 import React from 'react'
+import '../App.css'
 
 const Shuffle = (props) => {
   return(
-    <div>
-      <button onClick={props.handleShuffle}>swap</button>
-    </div>
+    <>
+      <button className = "swapButton" onClick={props.handleShuffle}>swap</button>
+    </>
   )
 }
 

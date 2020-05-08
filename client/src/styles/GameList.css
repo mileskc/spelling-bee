@@ -1,0 +1,11 @@
+#game-photo {
+  width: 200px;
+}
+
+.game-thumbnail {
+  border: solid 1px gray;
+  margin: 50px;
+}
+.game-list {
+  display: flex;
+}

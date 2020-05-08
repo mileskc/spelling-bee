@@ -24,7 +24,7 @@ class Hive extends React.Component {
       currentLetter: '',
       correctWords: correctWords,
       isBackspace: false,
-      currGame: 0
+      currGame: {}
     }
   }
 
@@ -159,7 +159,7 @@ class Hive extends React.Component {
   }
 
   render() {
-    const hiveCellData = [
+     const hiveCellData = [
       {
         point: "0,52 30,0 90,0 120,52 90,104 30,104",
         letter: this.state.letters[0]
@@ -186,7 +186,8 @@ class Hive extends React.Component {
       }
     ]
     return (
-      <div>
+      <>
+      
         <input id={this.state.currentLetter} onChange={this.handleChange} 
         onKeyDown={this.handleDelete}name="currentWord" value={this.state.currentWord}/>
           <button onClick={this.checkValidity}>Enter</button>
@@ -194,6 +195,7 @@ class Hive extends React.Component {
           {this.state.correctWords.map(word=>{
          return  <p>{word}</p>
         })}
+         <Shuffle centerLetter={this.state.centerLetter} handleShuffle={this.handleShuffle} />
         <div className="hive">
           <svg className="hive-cell">
             <polygon className="hex-cell middle" points="0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
@@ -234,9 +236,9 @@ class Hive extends React.Component {
         <text fill="black" x="50" y="50" dy="10">{this.state.letters[5]}</text>
       </svg> */}
 
-          <Shuffle centerLetter={this.state.centerLetter} handleShuffle={this.handleShuffle} />
+         
         </div>
-      </div>
+      </>
     )
   }
 }
