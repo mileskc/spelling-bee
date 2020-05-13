@@ -5,6 +5,7 @@ import '../styles/Hive.css'
 import Shuffle from './Shuffle'
 // import InputBar from './InputBar'
 import HiveCell from './HiveCell';
+import api from '../services/apiConfiguration';
 
 let correctWords = []
 
@@ -35,6 +36,7 @@ class Hive extends React.Component {
   }
 
   getGame = async () => {
+    // conditional - is there a user? then match params, else call game 1
     const gameNum = this.props.match.params.id
     const resp = await axios.get(`http://localhost:3000/api/games/${gameNum}`)
     let outerLetters = [...resp.data.game.letters]
@@ -44,7 +46,7 @@ class Hive extends React.Component {
       letters: outerLetters,
       currGame: resp.data.game
     })
-    console.log(`mount ${resp}`)
+    console.log(`mount ${resp.data.game}`)
     return resp
   }
 
@@ -133,7 +135,7 @@ class Hive extends React.Component {
   }
 
   checkValidity = () => {
-    
+    console.log("check validity called")
     // event.preventDefault()
     // console.log(this.state.currentWord)
     if (this.state.currGame.wordList.includes(this.state.currentWord)&&!correctWords.includes(this.state.currentWord)) {
@@ -170,9 +172,26 @@ class Hive extends React.Component {
     // console.log("called")
   }
 
+  checkGameCompletion = async () => {
+    console.log("check completion called")
+    if (correctWords.length===this.state.currGame.wordList.length) {
+      let user=this.props.user
+      console.log(`user.id is ${user.id}`)
+      let userId = user.id
+      console.log(`id is ${userId}`)
+      let gameNum = this.state.currGame.gameNum
+      const resp = await api.put(`http://localhost:3000/api/users/${userId}`, {"id" :userId, "gameNum": gameNum})
+      return resp.data
+    }
+    
+  }
+
   handleSubmit = () => {
     this.checkValidity()
+    this.checkGameCompletion()
   }
+
+  
 
   render() {
      const hiveCellData = [
@@ -206,7 +225,7 @@ class Hive extends React.Component {
       
         <input id={this.state.currentLetter} onChange={this.handleChange} 
         onKeyDown={this.handleDelete}name="currentWord" value={this.state.currentWord}/>
-          <button onClick={this.checkValidity}>Enter</button>
+          <button onClick={this.handleSubmit}>Enter</button>
           <button onClick={this.handleDeleteButton}>Delete</button>
           {this.state.correctWords.map(word=>{
          return  <p>{word}</p>
