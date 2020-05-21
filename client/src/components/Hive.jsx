@@ -5,12 +5,13 @@ import '../styles/Hive.css'
 import Shuffle from './Shuffle'
 // import InputBar from './InputBar'
 import HiveCell from './HiveCell';
+import api from '../services/apiConfiguration';
 
 let correctWords = []
 
 class Hive extends React.Component {
 
-  
+
   constructor(props) {
     super()
     // let outerLetters = [...wordData[0].letters]
@@ -18,13 +19,16 @@ class Hive extends React.Component {
     this.state = {
       // centerLetter: [...wordData[0].letters[0]],
       // letters: [...outerLetters],
+      isGameCompleted: false,
       centerLetter: '',
       letters: [],
       currentWord: '',
       currentLetter: '',
       correctWords: correctWords,
       isBackspace: false,
-      currGame: {}
+      currGame: {},
+      level: "Beginner",
+      points: 0
     }
   }
 
@@ -35,6 +39,7 @@ class Hive extends React.Component {
   }
 
   getGame = async () => {
+    // conditional - is there a user? then match params, else call game 1
     const gameNum = this.props.match.params.id
     const resp = await axios.get(`http://localhost:3000/api/games/${gameNum}`)
     let outerLetters = [...resp.data.game.letters]
@@ -44,7 +49,7 @@ class Hive extends React.Component {
       letters: outerLetters,
       currGame: resp.data.game
     })
-    console.log(`mount ${resp}`)
+    console.log(`mount ${resp.data.game}`)
     return resp
   }
 
@@ -96,27 +101,27 @@ class Hive extends React.Component {
 
   handleChange = (event) => {
     console.log(`change isBackspace ${this.state.isBackspace}`)
-    if (this.state.isBackspace===true) {
+    if (this.state.isBackspace === true) {
       this.setState({
-        currentWord: this.state.currentWord.slice(0, this.state.currentWord.length-1),
-        isBackspace:false
+        currentWord: this.state.currentWord.slice(0, this.state.currentWord.length - 1),
+        isBackspace: false
       })
       console.log("it's true")
     } else {
-    this.setState({
-      isValid: false,
-      currentLetter: event.target.id,
-      currentWord: this.state.currentWord + event.target.value[event.target.value.length-1]
-      // currentWord: this.state.currentWord + event.target.id
-    })
-  }
+      this.setState({
+        isValid: false,
+        currentLetter: event.target.id,
+        currentWord: this.state.currentWord + event.target.value[event.target.value.length - 1]
+        // currentWord: this.state.currentWord + event.target.id
+      })
+    }
     console.log(this.state.currentWord)
     console.log(`target id ${event.target.id}`)
-    
+
   }
 
   handleDelete = (event) => {
-    if (event.key==="Backspace") {
+    if (event.key === "Backspace") {
       this.setState({
         isBackspace: true
       })
@@ -128,28 +133,41 @@ class Hive extends React.Component {
 
   handleDeleteButton = () => {
     this.setState({
-      currentWord: this.state.currentWord.slice(0, this.state.currentWord.length-1)
+      currentWord: this.state.currentWord.slice(0, this.state.currentWord.length - 1)
     })
   }
 
   checkValidity = () => {
-    
+    console.log("check validity called")
     // event.preventDefault()
     // console.log(this.state.currentWord)
-    if (this.state.currGame.wordList.includes(this.state.currentWord)&&!correctWords.includes(this.state.currentWord)) {
+    if (this.state.currentWord.length < 4) {
+      alert("Too short")
+      this.setState({
+        currentWord: ''
+      })
+    } else if (this.state.currGame.wordList.includes(this.state.currentWord) && !correctWords.includes(this.state.currentWord)) {
       correctWords.push(this.state.currentWord)
       this.setState({
-        isValid:true,
+        isValid: true,
         correctWords: correctWords,
         currentWord: ''
       })
+      if (this.state.currentWord.length === 4) {
+        this.setState({
+          points: this.state.points + 1
+        })
+      } else if (this.state.currentWord === this.state.currGame.pangram) {
+        this.setState({
+          points: this.state.points + this.state.currentWord.length + 7
+        })
+      } else {
+        this.setState({
+          points: this.state.points + this.state.currentWord.length
+        })
+      }
     } else if (correctWords.includes(this.state.currentWord)) {
       alert("Already found")
-      this.setState({
-        currentWord: ''
-      })
-    } else if (this.state.currentWord.length < 4){
-      alert("Too short")
       this.setState({
         currentWord: ''
       })
@@ -165,17 +183,38 @@ class Hive extends React.Component {
       })
     }
 
-    
-    // console.log(`center letter is ${this.props.centerLetter}`)
-    // console.log("called")
+
+
+  }
+  // console.log(`center letter is ${this.props.centerLetter}`)
+  // console.log("called")
+
+
+  checkGameCompletion = async () => {
+    console.log("check completion called")
+    if (correctWords.length === this.state.currGame.wordList.length) {
+      let user = this.props.user
+      console.log(`user.id is ${user.id}`)
+      let userId = user.id
+      console.log(`id is ${userId}`)
+      let gameNum = this.state.currGame.gameNum
+      const resp = await api.put(`http://localhost:3000/api/users/${userId}`, { "id": userId, "gameNum": gameNum })
+      this.setState({
+        isGameCompleted: true
+      })
+      return resp.data
+    }
   }
 
   handleSubmit = () => {
     this.checkValidity()
+    this.checkGameCompletion()
   }
 
+
+
   render() {
-     const hiveCellData = [
+    const hiveCellData = [
       {
         point: "0,52 30,0 90,0 120,52 90,104 30,104",
         letter: this.state.letters[0]
@@ -203,23 +242,26 @@ class Hive extends React.Component {
     ]
     return (
       <>
-      
-        <input id={this.state.currentLetter} onChange={this.handleChange} 
-        onKeyDown={this.handleDelete}name="currentWord" value={this.state.currentWord}/>
-          <button onClick={this.checkValidity}>Enter</button>
-          <button onClick={this.handleDeleteButton}>Delete</button>
-          {this.state.correctWords.map(word=>{
-         return  <p>{word}</p>
+
+        <input id={this.state.currentLetter} onChange={this.handleChange}
+          onKeyDown={this.handleDelete} name="currentWord" value={this.state.currentWord} />
+        <button onClick={this.handleSubmit}>Enter</button>
+        <button onClick={this.handleDeleteButton}>Delete</button>
+        <h3>{this.state.points}</h3>
+        <h4>{this.state.level}</h4>
+        {this.state.correctWords.map(word => {
+          return <p>{word}</p>
         })}
-         <Shuffle centerLetter={this.state.centerLetter} handleShuffle={this.handleShuffle} />
+        <Shuffle centerLetter={this.state.centerLetter} handleShuffle={this.handleShuffle} />
         <div className="hive">
           <svg className="hive-cell">
             <polygon className="hex-cell middle" points="0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
             </polygon>
-            <text id={this.state.centerLetter}onClick={this.handleClick}fill="black" x="50" y="50" dy="10">{this.state.centerLetter}</text>
+            <text id={this.state.centerLetter} onClick={this.handleClick} fill="black" x="50" y="50" dy="10">{this.state.centerLetter}</text>
           </svg>
           {hiveCellData.map(cell => {
-            return(<HiveCell handleClick={this.handleClick} point={cell.point} letter={cell.letter} />)}
+            return (<HiveCell handleClick={this.handleClick} point={cell.point} letter={cell.letter} />)
+          }
           )}
           {/* <svg className = "hive-cell">
         <polygon className="hex-cell" points = "0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
@@ -252,7 +294,7 @@ class Hive extends React.Component {
         <text fill="black" x="50" y="50" dy="10">{this.state.letters[5]}</text>
       </svg> */}
 
-         
+
         </div>
       </>
     )
