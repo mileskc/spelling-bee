@@ -86,6 +86,38 @@ const changePassword = async(req,res) => {
   }
 }
 
+const getUserById = async (req,res) => {
+  try{
+    const {id} = req.params
+    const user = await User.findById(id)
+    if (user) {
+      return res.status(200).json({user})
+    }
+    return res.status(404).send('User with the specified ID does not exist')
+  }catch{
+    return res.status(500).json({error: error.message})
+  }
+}
+
+const addCompletedGameToUser = async (req,res) => {
+    let gameNum = req.body.gameNum
+    let id = req.body.id
+    await User.findByIdAndUpdate(id, { $addToSet: { completed_games: gameNum } }, {new:true}, (error) => {
+      if (error) {
+          return res.status(500).json({ error: error.message })
+      }
+      res.status(200).json("updated user")
+  })
+}
+
+// const removeCompletedGameFromUser = async () => {
+//   try {
+//     let user = await User.findByIdAndUpdate(req.params.id, {req.body}, {new:true})
+//   } catch (error) {
+    
+//   }
+// }
+
 const createGame = async(req,res) => {
   try{
     const game = await new Game(req.body)
@@ -107,18 +139,18 @@ const getAllGames = async(req,res) => {
   }
 }
 
-const getGameById = async (req,res) => {
-  try{
-    const {id} = req.params
-    const game = await Game.findById(id)
-    if (game) {
-      return res.status(200).json({game})
-    }
-    return res.status(404).send('Game with the specified ID does not exist')
-  }catch{
-    return res.status(500).json({error: error.message})
-  }
-}
+// const getGameById = async (req,res) => {
+//   try{
+//     const {id} = req.params
+//     const game = await Game.findById(id)
+//     if (game) {
+//       return res.status(200).json({game})
+//     }
+//     return res.status(404).send('Game with the specified ID does not exist')
+//   }catch{
+//     return res.status(500).json({error: error.message})
+//   }
+// }
 
 const getGameByNum = async (req,res) => {
   try{
@@ -169,9 +201,11 @@ module.exports = {
   signIn,
   verifyUser,
   changePassword,
+  getUserById,
+  addCompletedGameToUser,
   createGame,
   getAllGames,
-  getGameById,
+  // getGameById,
   getGameByNum,
   updateGame,
   deleteGame
