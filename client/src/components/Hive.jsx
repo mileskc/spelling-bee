@@ -49,9 +49,10 @@ class Hive extends React.Component {
       centerLetter: centerLetter,
       letters: outerLetters,
       currGame: resp.data.game,
-      maxScore: resp.data.maxScore
+      maxScore: resp.data.game.maxScore
     })
-    console.log(`mount ${resp.data.game}`)
+    console.log(`mount ${resp.data.game.maxScore}`)
+    console.log(`mount ${resp.data.game.numWords}`)
     return resp
   }
 
@@ -193,6 +194,44 @@ class Hive extends React.Component {
 
 
   checkGameLevel = () => {
+    switch (this.state.points) {
+      case this.state.points === this.state.maxScore:
+        this.setState({
+          level: "Queen Bee"
+        })
+      case this.state.points >= this.state.genius:
+        this.setState({
+          level: "Genius"
+        })
+      case this.state.points >= (this.state.maxScore * .5):
+        this.setState({
+          level: "Amazing"
+        })
+      case this.state.points >= (this.state.maxScore * .4):
+        this.setState({
+          level: "Great"
+        })
+      case this.state.points >= (this.state.maxScore * .26):
+        this.setState({
+          level: "Nice"
+        })
+      case this.state.points >= (this.state.maxScore * .16):
+        this.setState({
+          level: "Solid"
+        })
+      case this.state.points >= (this.state.maxScore * .09):
+        this.setState({
+          level: "Good"
+        })
+      case this.state.points >= (this.state.maxScore * .05):
+        this.setState({
+          level: "Moving Up"
+        })
+      case this.state.points > 0:
+        this.setState({
+          level: "Good Start"
+        })
+    }
 
   }
 
