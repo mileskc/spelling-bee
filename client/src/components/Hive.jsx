@@ -28,7 +28,8 @@ class Hive extends React.Component {
       isBackspace: false,
       currGame: {},
       level: "Beginner",
-      points: 0
+      points: 0,
+      maxScore: 0
     }
   }
 
@@ -47,7 +48,8 @@ class Hive extends React.Component {
     this.setState({
       centerLetter: centerLetter,
       letters: outerLetters,
-      currGame: resp.data.game
+      currGame: resp.data.game,
+      maxScore: resp.data.maxScore
     })
     console.log(`mount ${resp.data.game}`)
     return resp
@@ -190,6 +192,10 @@ class Hive extends React.Component {
   // console.log("called")
 
 
+  checkGameLevel = () => {
+
+  }
+
   checkGameCompletion = async () => {
     console.log("check completion called")
     if (correctWords.length === this.state.currGame.wordList.length) {
@@ -208,7 +214,9 @@ class Hive extends React.Component {
 
   handleSubmit = () => {
     this.checkValidity()
+    this.checkGameLevel()
     this.checkGameCompletion()
+
   }
 
 
@@ -245,8 +253,10 @@ class Hive extends React.Component {
 
         <input id={this.state.currentLetter} onChange={this.handleChange}
           onKeyDown={this.handleDelete} name="currentWord" value={this.state.currentWord} />
+
         <button onClick={this.handleSubmit}>Enter</button>
         <button onClick={this.handleDeleteButton}>Delete</button>
+
         <h3>{this.state.points}</h3>
         <h4>{this.state.level}</h4>
         {this.state.correctWords.map(word => {
