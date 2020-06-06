@@ -193,45 +193,54 @@ class Hive extends React.Component {
   // console.log("called")
 
 
-  checkGameLevel = () => {
-    switch (this.state.points) {
-      case this.state.points === this.state.maxScore:
-        this.setState({
-          level: "Queen Bee"
-        })
-      case this.state.points >= this.state.genius:
-        this.setState({
-          level: "Genius"
-        })
-      case this.state.points >= (this.state.maxScore * .5):
-        this.setState({
-          level: "Amazing"
-        })
-      case this.state.points >= (this.state.maxScore * .4):
-        this.setState({
-          level: "Great"
-        })
-      case this.state.points >= (this.state.maxScore * .26):
-        this.setState({
-          level: "Nice"
-        })
-      case this.state.points >= (this.state.maxScore * .16):
-        this.setState({
-          level: "Solid"
-        })
-      case this.state.points >= (this.state.maxScore * .09):
-        this.setState({
-          level: "Good"
-        })
-      case this.state.points >= (this.state.maxScore * .05):
-        this.setState({
-          level: "Moving Up"
-        })
-      case this.state.points > 0:
-        this.setState({
-          level: "Good Start"
-        })
+  checkGameLevel = (points) => {
+    if (points === this.state.maxScore) {
+      this.setState({
+        level: "Queen Bee"
+      })
     }
+    else if (points >= this.state.genius) {
+      this.setState({
+        level: "Genius"
+      })
+    }
+    else if (points >= (this.state.maxScore * .5)) {
+      this.setState({
+        level: "Amazing"
+      })
+    }
+    else if (points >= (this.state.maxScore * .4)) {
+      this.setState({
+        level: "Great"
+      })
+    }
+    else if (points >= (this.state.maxScore * .26)) {
+      this.setState({
+        level: "Nice"
+      })
+    }
+    else if (points >= (this.state.maxScore * .16)) {
+      this.setState({
+        level: "Solid"
+      })
+    }
+    else if (points >= (this.state.maxScore * .09)) {
+      this.setState({
+        level: "Good"
+      })
+    }
+    else if (points >= (this.state.maxScore * .05)) {
+      this.setState({
+        level: "Moving Up"
+      })
+    }
+    else if (points > 0) {
+      this.setState({
+        level: "Good Start"
+      })
+    }
+
+    console.log("GAME LEVEL CALLED")
 
   }
 
@@ -253,9 +262,8 @@ class Hive extends React.Component {
 
   handleSubmit = () => {
     this.checkValidity()
-    this.checkGameLevel()
+    this.checkGameLevel(this.state.points)
     this.checkGameCompletion()
-
   }
 
 
@@ -297,7 +305,8 @@ class Hive extends React.Component {
         <button onClick={this.handleDeleteButton}>Delete</button>
 
         <h3>{this.state.points}</h3>
-        <h4>{this.state.level}</h4>
+        <h4>{this.state.level && this.state.level}</h4>
+
         {this.state.correctWords.map(word => {
           return <p>{word}</p>
         })}
