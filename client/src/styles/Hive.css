@@ -91,8 +91,7 @@ form {
 
 .wordInput {
   caret-color: rgb(255, 221, 0);
-  line-height: 50px;
-  font-size: 40px;
+  font-size: 25px;
   transform: translate(0px, -100px);
   /* font-weight: bolder; */
   /* border: none; */
@@ -103,26 +102,31 @@ form {
 #delButton, #enterButton, #swapButton {
   /* margin-top: 350px; */
   position: absolute;
-  top: 650%;
+  top: 950%;
   border-radius: 30px;
   padding: 20px;
   border:solid rgb(230,230,230) 1px;
   background-color: white;
+  font-size: 1rem;
 }
 
 #delButton {
   right: 55%;
+  width: 95px;
 }
 #swapButton {
   /* right: 80%; */
   /* offset-position: -300px; */
-  right: -11%;
+  right: -15%;
+  font-size: 2rem;
+  padding: 10px;
 }
 
 #enterButton {
   /* position: absolute;
   top: 600%; */
   left: 150%;
+  width: 95px;
   /* transform: translate(5px, 500px); */
 
 }
