@@ -86,7 +86,8 @@ class Hive extends React.Component {
     })
   }
 
-  handleShuffle = () => {
+  handleShuffle = (e) => {
+    e.preventDefault()
     this.shuffleLetters()
     // console.log(this.state.letters)
   }
@@ -134,7 +135,8 @@ class Hive extends React.Component {
     console.log(`isBackspace ${this.state.isBackspace}`)
   }
 
-  handleDeleteButton = () => {
+  handleDeleteButton = (e) => {
+    e.preventDefault()
     this.setState({
       currentWord: this.state.currentWord.slice(0, this.state.currentWord.length - 1)
     })
@@ -329,7 +331,7 @@ class Hive extends React.Component {
             <p id="pointsNum">{this.state.points}</p>
           </div>
           <div id="correctWords">
-            <p>You have found {this.state.correctWords.length} words</p>
+            <p id="foundWordsLabel">You have found {this.state.correctWords.length} words</p>
             {this.state.correctWords.map(word => {
               return <p>{word}</p>
             })}
