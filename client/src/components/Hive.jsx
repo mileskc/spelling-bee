@@ -41,7 +41,9 @@ class Hive extends React.Component {
 
   getGame = async () => {
     // conditional - is there a user? then match params, else call game 1
-    const gameNum = this.props.match.params.id
+    // const gameNum = this.props.match.params.id
+    let gameNum
+    this.props.user ? gameNum = this.props.match.params.id : gameNum = 1
     const resp = await axios.get(`http://localhost:3000/api/games/${gameNum}`)
     let outerLetters = [...resp.data.game.letters]
     let centerLetter = outerLetters.shift()
@@ -86,7 +88,8 @@ class Hive extends React.Component {
     })
   }
 
-  handleShuffle = () => {
+  handleShuffle = (e) => {
+    e.preventDefault()
     this.shuffleLetters()
     // console.log(this.state.letters)
   }
@@ -134,7 +137,8 @@ class Hive extends React.Component {
     console.log(`isBackspace ${this.state.isBackspace}`)
   }
 
-  handleDeleteButton = () => {
+  handleDeleteButton = (e) => {
+    e.preventDefault()
     this.setState({
       currentWord: this.state.currentWord.slice(0, this.state.currentWord.length - 1)
     })
@@ -300,14 +304,7 @@ class Hive extends React.Component {
       }
     ]
     return (
-      <>
-
-        <h3>{this.state.points}</h3>
-        <h4>{this.state.level && this.state.level}</h4>
-
-        {this.state.correctWords.map(word => {
-          return <p>{word}</p>
-        })}
+      <div className="hiveComponent">
 
         <div className="hive">
 
@@ -329,6 +326,18 @@ class Hive extends React.Component {
             <Shuffle centerLetter={this.state.centerLetter} handleShuffle={this.handleShuffle} />
           </form>
 
+        </div>
+        <div className="scoring">
+          <div id="levels">
+            <p id="levelName">{this.state.level && this.state.level}</p>
+            <p id="pointsNum">{this.state.points}</p>
+          </div>
+          <div id="correctWords">
+            <p id="foundWordsLabel">You have found {this.state.correctWords.length} words</p>
+            {this.state.correctWords.map(word => {
+              return <p>{word}</p>
+            })}
+          </div>
         </div>
         {/* <svg className = "hive-cell">
         <polygon className="hex-cell" points = "0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
@@ -364,7 +373,7 @@ class Hive extends React.Component {
 
 
 
-      </>
+      </div>
     )
   }
 }
