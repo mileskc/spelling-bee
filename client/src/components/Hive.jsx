@@ -41,7 +41,9 @@ class Hive extends React.Component {
 
   getGame = async () => {
     // conditional - is there a user? then match params, else call game 1
-    const gameNum = this.props.match.params.id
+    // const gameNum = this.props.match.params.id
+    let gameNum
+    this.props.user ? gameNum = this.props.match.params.id : gameNum = 1
     const resp = await axios.get(`http://localhost:3000/api/games/${gameNum}`)
     let outerLetters = [...resp.data.game.letters]
     let centerLetter = outerLetters.shift()
