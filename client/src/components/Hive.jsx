@@ -301,13 +301,6 @@ class Hive extends React.Component {
     ]
     return (
       <>
-        <form>
-          <input id={this.state.currentLetter} onChange={this.handleChange}
-            onKeyDown={this.handleDelete} name="currentWord" value={this.state.currentWord} />
-
-          <button type="submit" onClick={this.handleSubmit}>Enter</button>
-        </form>
-        <button onClick={this.handleDeleteButton}>Delete</button>
 
         <h3>{this.state.points}</h3>
         <h4>{this.state.level && this.state.level}</h4>
@@ -315,8 +308,9 @@ class Hive extends React.Component {
         {this.state.correctWords.map(word => {
           return <p>{word}</p>
         })}
-        <Shuffle centerLetter={this.state.centerLetter} handleShuffle={this.handleShuffle} />
+
         <div className="hive">
+
           <svg className="hive-cell">
             <polygon className="hex-cell middle" points="0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
             </polygon>
@@ -326,7 +320,17 @@ class Hive extends React.Component {
             return (<HiveCell handleClick={this.handleClick} point={cell.point} letter={cell.letter} />)
           }
           )}
-          {/* <svg className = "hive-cell">
+
+          <form>
+            <input className="wordInput" id={this.state.currentLetter} onChange={this.handleChange}
+              onKeyDown={this.handleDelete} name="currentWord" value={this.state.currentWord} />
+            <button id="enterButton" type="submit" onClick={this.handleSubmit}>Enter</button>
+            <button id="delButton" onClick={this.handleDeleteButton}>Delete</button>
+            <Shuffle centerLetter={this.state.centerLetter} handleShuffle={this.handleShuffle} />
+          </form>
+
+        </div>
+        {/* <svg className = "hive-cell">
         <polygon className="hex-cell" points = "0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
         </polygon>
         <text fill="black" x="50" y="50" dy="10">{this.state.letters[0]}</text>
@@ -358,7 +362,8 @@ class Hive extends React.Component {
       </svg> */}
 
 
-        </div>
+
+
       </>
     )
   }

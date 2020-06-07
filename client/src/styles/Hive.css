@@ -1,6 +1,7 @@
 
+
 .hive {
-  margin-top: 15%;
+  /* margin-top: 15%; */
   margin-left: 10%;
   width: 90vw;
   max-width: 330px;
@@ -53,4 +54,49 @@
 
 .hex-cell.middle {
   fill: #f8cd05;
+}
+
+/* form */
+
+form {
+  position: relative;
+  width: 50%;
+}
+
+.wordInput {
+  caret-color: rgb(255, 221, 0);
+  line-height: 50px;
+  font-size: 40px;
+  transform: translate(0px, -100px);
+  /* font-weight: bolder; */
+  /* border: none; */
+  /* position: absolute;
+  top: 100%; */
+}
+
+#delButton, #enterButton, #swapButton {
+  /* margin-top: 350px; */
+  position: absolute;
+  top: 650%;
+  border-radius: 30px;
+  padding: 20px;
+  border-color: gray;
+  background-color: white;
+}
+
+#delButton {
+  right: 55%;
+}
+#swapButton {
+  /* right: 80%; */
+  /* offset-position: -300px; */
+  right: -11%;
+}
+
+#enterButton {
+  /* position: absolute;
+  top: 600%; */
+  left: 150%;
+  /* transform: translate(5px, 500px); */
+
 }
