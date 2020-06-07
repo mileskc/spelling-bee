@@ -8,9 +8,11 @@ const Game = new Schema(
     wordList: Array,
     numWords: Number,
     pangram: String,
-    isCompleted: Boolean
+    isCompleted: Boolean,
+    maxScore: Number,
+    genius: Number
   },
-  {timestamps:true}
+  { timestamps: true }
 )
 
 module.exports = mongoose.model('games', Game)

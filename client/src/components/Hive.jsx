@@ -28,7 +28,8 @@ class Hive extends React.Component {
       isBackspace: false,
       currGame: {},
       level: "Beginner",
-      points: 0
+      points: 0,
+      maxScore: 0
     }
   }
 
@@ -47,9 +48,11 @@ class Hive extends React.Component {
     this.setState({
       centerLetter: centerLetter,
       letters: outerLetters,
-      currGame: resp.data.game
+      currGame: resp.data.game,
+      maxScore: resp.data.game.maxScore
     })
-    console.log(`mount ${resp.data.game}`)
+    console.log(`mount ${resp.data.game.maxScore}`)
+    console.log(`mount ${resp.data.game.numWords}`)
     return resp
   }
 
@@ -156,16 +159,18 @@ class Hive extends React.Component {
       if (this.state.currentWord.length === 4) {
         this.setState({
           points: this.state.points + 1
-        })
+        }, () => { this.checkGameLevel(this.state.points) })
       } else if (this.state.currentWord === this.state.currGame.pangram) {
         this.setState({
           points: this.state.points + this.state.currentWord.length + 7
-        })
+        }, () => { this.checkGameLevel(this.state.points) })
+        alert("Pangram!")
       } else {
         this.setState({
           points: this.state.points + this.state.currentWord.length
-        })
+        }, () => { this.checkGameLevel(this.state.points) })
       }
+      console.log(`this state points validity ${this.state.points}`)
     } else if (correctWords.includes(this.state.currentWord)) {
       alert("Already found")
       this.setState({
@@ -183,12 +188,64 @@ class Hive extends React.Component {
       })
     }
 
-
+    console.log(`this state points validity ${this.state.points}`)
 
   }
   // console.log(`center letter is ${this.props.centerLetter}`)
   // console.log("called")
 
+
+  checkGameLevel = (points) => {
+    if (points === this.state.maxScore) {
+      this.setState({
+        level: "Queen Bee"
+      })
+    }
+    else if (points >= this.state.genius) {
+      this.setState({
+        level: "Genius"
+      })
+    }
+    else if (points >= (this.state.maxScore * .5)) {
+      this.setState({
+        level: "Amazing"
+      })
+    }
+    else if (points >= (this.state.maxScore * .4)) {
+      this.setState({
+        level: "Great"
+      })
+    }
+    else if (points >= (this.state.maxScore * .26)) {
+      this.setState({
+        level: "Nice"
+      })
+    }
+    else if (points >= (this.state.maxScore * .16)) {
+      this.setState({
+        level: "Solid"
+      })
+    }
+    else if (points >= (this.state.maxScore * .09)) {
+      this.setState({
+        level: "Good"
+      })
+    }
+    else if (points >= (this.state.maxScore * .05)) {
+      this.setState({
+        level: "Moving Up"
+      })
+    }
+    else if (points > 0) {
+      this.setState({
+        level: "Good Start"
+      })
+    }
+    console.log(this.state.points)
+    console.log(this.state.level)
+    console.log("GAME LEVEL CALLED")
+
+  }
 
   checkGameCompletion = async () => {
     console.log("check completion called")
@@ -206,9 +263,11 @@ class Hive extends React.Component {
     }
   }
 
-  handleSubmit = () => {
+  handleSubmit = (e) => {
+    e.preventDefault()
     this.checkValidity()
     this.checkGameCompletion()
+    // this.checkGameLevel(this.state.points)
   }
 
 
@@ -242,13 +301,17 @@ class Hive extends React.Component {
     ]
     return (
       <>
+        <form>
+          <input id={this.state.currentLetter} onChange={this.handleChange}
+            onKeyDown={this.handleDelete} name="currentWord" value={this.state.currentWord} />
 
-        <input id={this.state.currentLetter} onChange={this.handleChange}
-          onKeyDown={this.handleDelete} name="currentWord" value={this.state.currentWord} />
-        <button onClick={this.handleSubmit}>Enter</button>
+          <button type="submit" onClick={this.handleSubmit}>Enter</button>
+        </form>
         <button onClick={this.handleDeleteButton}>Delete</button>
+
         <h3>{this.state.points}</h3>
-        <h4>{this.state.level}</h4>
+        <h4>{this.state.level && this.state.level}</h4>
+
         {this.state.correctWords.map(word => {
           return <p>{word}</p>
         })}
