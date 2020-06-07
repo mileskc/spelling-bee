@@ -164,6 +164,7 @@ class Hive extends React.Component {
         this.setState({
           points: this.state.points + this.state.currentWord.length + 7
         }, () => { this.checkGameLevel(this.state.points) })
+        alert("Pangram!")
       } else {
         this.setState({
           points: this.state.points + this.state.currentWord.length
@@ -262,10 +263,11 @@ class Hive extends React.Component {
     }
   }
 
-  handleSubmit = () => {
+  handleSubmit = (e) => {
+    e.preventDefault()
     this.checkValidity()
     this.checkGameCompletion()
-    this.checkGameLevel(this.state.points)
+    // this.checkGameLevel(this.state.points)
   }
 
 
@@ -299,11 +301,12 @@ class Hive extends React.Component {
     ]
     return (
       <>
+        <form>
+          <input id={this.state.currentLetter} onChange={this.handleChange}
+            onKeyDown={this.handleDelete} name="currentWord" value={this.state.currentWord} />
 
-        <input id={this.state.currentLetter} onChange={this.handleChange}
-          onKeyDown={this.handleDelete} name="currentWord" value={this.state.currentWord} />
-
-        <button onClick={this.handleSubmit}>Enter</button>
+          <button type="submit" onClick={this.handleSubmit}>Enter</button>
+        </form>
         <button onClick={this.handleDeleteButton}>Delete</button>
 
         <h3>{this.state.points}</h3>
