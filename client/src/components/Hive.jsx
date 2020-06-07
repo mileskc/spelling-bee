@@ -159,16 +159,17 @@ class Hive extends React.Component {
       if (this.state.currentWord.length === 4) {
         this.setState({
           points: this.state.points + 1
-        })
+        }, () => { this.checkGameLevel(this.state.points) })
       } else if (this.state.currentWord === this.state.currGame.pangram) {
         this.setState({
           points: this.state.points + this.state.currentWord.length + 7
-        })
+        }, () => { this.checkGameLevel(this.state.points) })
       } else {
         this.setState({
           points: this.state.points + this.state.currentWord.length
-        })
+        }, () => { this.checkGameLevel(this.state.points) })
       }
+      console.log(`this state points validity ${this.state.points}`)
     } else if (correctWords.includes(this.state.currentWord)) {
       alert("Already found")
       this.setState({
@@ -186,7 +187,7 @@ class Hive extends React.Component {
       })
     }
 
-
+    console.log(`this state points validity ${this.state.points}`)
 
   }
   // console.log(`center letter is ${this.props.centerLetter}`)
@@ -239,7 +240,8 @@ class Hive extends React.Component {
         level: "Good Start"
       })
     }
-
+    console.log(this.state.points)
+    console.log(this.state.level)
     console.log("GAME LEVEL CALLED")
 
   }
@@ -262,8 +264,8 @@ class Hive extends React.Component {
 
   handleSubmit = () => {
     this.checkValidity()
-    this.checkGameLevel(this.state.points)
     this.checkGameCompletion()
+    this.checkGameLevel(this.state.points)
   }
 
 
