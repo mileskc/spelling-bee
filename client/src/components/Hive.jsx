@@ -325,11 +325,11 @@ class Hive extends React.Component {
         </div>
         <div className="scoring">
           <div id="levels">
-            <h4>{this.state.level && this.state.level}</h4>
-            <h3>{this.state.points}</h3>
+            <p id="levelName">{this.state.level && this.state.level}</p>
+            <p id="pointsNum">{this.state.points}</p>
           </div>
           <div id="correctWords">
-            <h3>You have found {this.state.correctWords.length} words</h3>
+            <p>You have found {this.state.correctWords.length} words</p>
             {this.state.correctWords.map(word => {
               return <p>{word}</p>
             })}
