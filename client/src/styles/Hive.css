@@ -1,7 +1,33 @@
+/* Component layout */
 
+.hiveComponent {
+  display: flex;
+  justify-content: space-around;
+  
+}
+
+.scoring {
+  width: 40%;
+  /* border: solid black 1px; */
+}
+
+#levels {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#correctWords {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  border: solid rgb(230,230,230) 1px;
+  border-radius: 5px;
+  height: 50vh;
+}
+/* Hive shape */
 
 .hive {
-  /* margin-top: 15%; */
+  margin-top: 15%;
   margin-left: 10%;
   width: 90vw;
   max-width: 330px;
@@ -80,7 +106,7 @@ form {
   top: 650%;
   border-radius: 30px;
   padding: 20px;
-  border-color: gray;
+  border:solid rgb(230,230,230) 1px;
   background-color: white;
 }
 

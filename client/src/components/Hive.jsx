@@ -300,14 +300,7 @@ class Hive extends React.Component {
       }
     ]
     return (
-      <>
-
-        <h3>{this.state.points}</h3>
-        <h4>{this.state.level && this.state.level}</h4>
-
-        {this.state.correctWords.map(word => {
-          return <p>{word}</p>
-        })}
+      <div className="hiveComponent">
 
         <div className="hive">
 
@@ -329,6 +322,18 @@ class Hive extends React.Component {
             <Shuffle centerLetter={this.state.centerLetter} handleShuffle={this.handleShuffle} />
           </form>
 
+        </div>
+        <div className="scoring">
+          <div id="levels">
+            <h4>{this.state.level && this.state.level}</h4>
+            <h3>{this.state.points}</h3>
+          </div>
+          <div id="correctWords">
+            <h3>You have found {this.state.correctWords.length} words</h3>
+            {this.state.correctWords.map(word => {
+              return <p>{word}</p>
+            })}
+          </div>
         </div>
         {/* <svg className = "hive-cell">
         <polygon className="hex-cell" points = "0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
@@ -364,7 +369,7 @@ class Hive extends React.Component {
 
 
 
-      </>
+      </div>
     )
   }
 }
