@@ -1,10 +1,10 @@
 import React from 'react'
-import '../App.css'
+import '../styles/Hive.css'
 
 const Shuffle = (props) => {
-  return(
+  return (
     <>
-      <button className = "swapButton" onClick={props.handleShuffle}>swap</button>
+      <button id="swapButton" onClick={props.handleShuffle}>&#8644;</button>
     </>
   )
 }

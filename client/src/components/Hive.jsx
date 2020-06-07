@@ -41,7 +41,9 @@ class Hive extends React.Component {
 
   getGame = async () => {
     // conditional - is there a user? then match params, else call game 1
-    const gameNum = this.props.match.params.id
+    // const gameNum = this.props.match.params.id
+    let gameNum
+    this.props.user ? gameNum = this.props.match.params.id : gameNum = 1
     const resp = await axios.get(`http://localhost:3000/api/games/${gameNum}`)
     let outerLetters = [...resp.data.game.letters]
     let centerLetter = outerLetters.shift()
@@ -86,7 +88,8 @@ class Hive extends React.Component {
     })
   }
 
-  handleShuffle = () => {
+  handleShuffle = (e) => {
+    e.preventDefault()
     this.shuffleLetters()
     // console.log(this.state.letters)
   }
@@ -134,7 +137,8 @@ class Hive extends React.Component {
     console.log(`isBackspace ${this.state.isBackspace}`)
   }
 
-  handleDeleteButton = () => {
+  handleDeleteButton = (e) => {
+    e.preventDefault()
     this.setState({
       currentWord: this.state.currentWord.slice(0, this.state.currentWord.length - 1)
     })
@@ -300,23 +304,10 @@ class Hive extends React.Component {
       }
     ]
     return (
-      <>
-        <form>
-          <input id={this.state.currentLetter} onChange={this.handleChange}
-            onKeyDown={this.handleDelete} name="currentWord" value={this.state.currentWord} />
+      <div className="hiveComponent">
 
-          <button type="submit" onClick={this.handleSubmit}>Enter</button>
-        </form>
-        <button onClick={this.handleDeleteButton}>Delete</button>
-
-        <h3>{this.state.points}</h3>
-        <h4>{this.state.level && this.state.level}</h4>
-
-        {this.state.correctWords.map(word => {
-          return <p>{word}</p>
-        })}
-        <Shuffle centerLetter={this.state.centerLetter} handleShuffle={this.handleShuffle} />
         <div className="hive">
+
           <svg className="hive-cell">
             <polygon className="hex-cell middle" points="0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
             </polygon>
@@ -326,7 +317,29 @@ class Hive extends React.Component {
             return (<HiveCell handleClick={this.handleClick} point={cell.point} letter={cell.letter} />)
           }
           )}
-          {/* <svg className = "hive-cell">
+
+          <form>
+            <input className="wordInput" id={this.state.currentLetter} onChange={this.handleChange}
+              onKeyDown={this.handleDelete} name="currentWord" value={this.state.currentWord} />
+            <button id="enterButton" type="submit" onClick={this.handleSubmit}>Enter</button>
+            <button id="delButton" onClick={this.handleDeleteButton}>Delete</button>
+            <Shuffle centerLetter={this.state.centerLetter} handleShuffle={this.handleShuffle} />
+          </form>
+
+        </div>
+        <div className="scoring">
+          <div id="levels">
+            <p id="levelName">{this.state.level && this.state.level}</p>
+            <p id="pointsNum">{this.state.points}</p>
+          </div>
+          <div id="correctWords">
+            <p id="foundWordsLabel">You have found {this.state.correctWords.length} words</p>
+            {this.state.correctWords.map(word => {
+              return <p>{word}</p>
+            })}
+          </div>
+        </div>
+        {/* <svg className = "hive-cell">
         <polygon className="hex-cell" points = "0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
         </polygon>
         <text fill="black" x="50" y="50" dy="10">{this.state.letters[0]}</text>
@@ -358,8 +371,9 @@ class Hive extends React.Component {
       </svg> */}
 
 
-        </div>
-      </>
+
+
+      </div>
     )
   }
 }
