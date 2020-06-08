@@ -254,16 +254,19 @@ class Hive extends React.Component {
   checkGameCompletion = async () => {
     console.log("check completion called")
     if (correctWords.length === this.state.currGame.wordList.length) {
-      let user = this.props.user
-      console.log(`user.id is ${user.id}`)
-      let userId = user.id
-      console.log(`id is ${userId}`)
-      let gameNum = this.state.currGame.gameNum
-      const resp = await api.put(`http://localhost:3000/api/users/${userId}`, { "id": userId, "gameNum": gameNum })
-      this.setState({
-        isGameCompleted: true
-      })
-      return resp.data
+      alert("You've found all the words!")
+      if (this.props.user) {
+        let user = this.props.user
+        console.log(`user.id is ${user.id}`)
+        let userId = user.id
+        console.log(`id is ${userId}`)
+        let gameNum = this.state.currGame.gameNum
+        const resp = await api.put(`http://localhost:3000/api/users/${userId}`, { "id": userId, "gameNum": gameNum })
+        this.setState({
+          isGameCompleted: true
+        })
+        return resp.data
+      }
     }
   }
 
