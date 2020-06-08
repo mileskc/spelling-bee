@@ -3,7 +3,7 @@
 .hiveComponent {
   display: flex;
   justify-content: space-around;
-  
+  align-items: center;
 }
 
 .scoring {
@@ -153,4 +153,16 @@ form {
   width: 95px;
   /* transform: translate(5px, 500px); */
 
+}
+
+@media (max-width: 600px) {
+  .hiveComponent {
+    flex-direction: column;
+    margin-top: 100px;
+  }
+
+  .scoring {
+    margin-top: 100px;
+    width: 90vw;
+  }
 }
