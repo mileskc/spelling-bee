@@ -337,9 +337,11 @@ class Hive extends React.Component {
           </div>
           <div id="correctWords">
             <p id="foundWordsLabel">You have found {this.state.correctWords.length} words</p>
-            {this.state.correctWords.map(word => {
-              return <p>{word}</p>
-            })}
+            <div className="correctWordList">
+              {this.state.correctWords.map(word => {
+                return <p>{word}</p>
+              })}
+            </div>
           </div>
         </div>
         {/* <svg className = "hive-cell">
