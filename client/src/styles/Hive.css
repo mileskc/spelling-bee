@@ -38,12 +38,17 @@
 }
 
 #correctWords {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
   border: solid rgb(230,230,230) 1px;
   border-radius: 5px;
   height: 50vh;
+}
+
+.correctWordList {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 45vh;
+  margin: 20px;
 }
 /* Hive shape */
 
