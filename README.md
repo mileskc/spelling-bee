@@ -1,68 +1,19 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# NYT Spelling Bee Clone
 
-## Available Scripts
+This app is a clone of the popular NYT game, [Spelling Bee](https://www.nytimes.com/puzzles/spelling-bee). I play the game every day along with the NYT crossword, and as I played started thinking about how the app might have been coded and how I would recreate the game logic. So I was inspired to build a clone! This deployed version is Phase 1, where there is one game available for anyone to play without logging in. Phase 2 is a work in progress, where users will be able to create accounts and log in to play multiple game options. I have been modeling this after the NYT Crossword interface, where users have a variety of puzzles to choose from and can see which games have been completed. This process is underway, stay tuned for an update.
 
-In the project directory, you can run:
+## Technologies
 
-### `yarn start`
+The backend was architected with MongoDB and Express, with basic auth structure using JSON web tokens and bcrypt in tact in anticipation of Phase 2 release. The front end was created with React, and React Router for the Phase 2 work in progress. The game data has been taken from actual NYT spelling bee games that I completed.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Levels
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+The poins are based off the NYT rules:
 
-### `yarn test`
+"4-letter words are worth 1 point each.
+Longer words earn 1 point per letter.
+Each puzzle includes at least one “pangram” which uses every letter. These are worth 7 extra points!"
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Levels names are also corresponding to the NYT level and are calculated based on the estimated percentage of total available points.
 
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+This has been a fun project and I look forward to finishing the next version of this clone.
