@@ -7,7 +7,14 @@ import Shuffle from './Shuffle'
 import HiveCell from './HiveCell';
 import api from '../services/apiConfiguration';
 
+let baseURL
+if (process.env.NODE_ENV === 'development') {
+  baseURL = 'http://localhost:3001'
+} else {
+  baseURL = 'http://spelling-bee-clone-backend.herokuapp.com/'
+}
 let correctWords = []
+
 
 class Hive extends React.Component {
 
@@ -44,7 +51,7 @@ class Hive extends React.Component {
     // const gameNum = this.props.match.params.id
     let gameNum
     this.props.user ? gameNum = this.props.match.params.id : gameNum = 1
-    const resp = await axios.get(`http://localhost:3000/api/games/${gameNum}`)
+    const resp = await axios.get(`${baseURL}/api/games/${gameNum}`)
     let outerLetters = [...resp.data.game.letters]
     let centerLetter = outerLetters.shift()
     this.setState({
@@ -261,7 +268,7 @@ class Hive extends React.Component {
         let userId = user.id
         console.log(`id is ${userId}`)
         let gameNum = this.state.currGame.gameNum
-        const resp = await api.put(`http://localhost:3000/api/users/${userId}`, { "id": userId, "gameNum": gameNum })
+        const resp = await api.put(`${baseURL}/api/users/${userId}`, { "id": userId, "gameNum": gameNum })
         this.setState({
           isGameCompleted: true
         })
