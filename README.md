@@ -1,6 +1,10 @@
 # NYT Spelling Bee Clone
 
+[Spelling Bee Clone Live Site](spelling-bee-clone.surge.sh)
+
 This app is a clone of the popular NYT game, [Spelling Bee](https://www.nytimes.com/puzzles/spelling-bee). I play the game every day along with the NYT crossword, and as I played started thinking about how the app might have been coded and how I would recreate the game logic. So I was inspired to build a clone! This deployed version is Phase 1, where there is one game available for anyone to play without logging in. Phase 2 is a work in progress, where users will be able to create accounts and log in to play multiple game options. I have been modeling this after the NYT Crossword interface, where users have a variety of puzzles to choose from and can see which games have been completed. This process is underway, stay tuned for an update.
+
+![Live Site Image](https://i.imgur.com/UfdPJkG.png)
 
 ## Technologies
 
