@@ -166,6 +166,10 @@ form {
     margin-top: 100px;
   }
 
+  #delButton, #enterButton, #swapButton {
+    top: 900%;
+  }
+
   .scoring {
     margin-top: 150px;
     width: 90vw;
