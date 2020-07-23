@@ -44,6 +44,10 @@ class Hive extends React.Component {
     // this.getAllGames()
     this.getGame()
     console.log("get game called")
+    this.setState({
+      correctWords: []
+    })
+    correctWords = []
   }
 
   getGame = async () => {
