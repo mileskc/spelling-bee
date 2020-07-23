@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { signIn } from '../services/auth'
+import '../styles/SignIn.css'
 
 class SignIn extends Component {
   constructor() {
@@ -53,7 +54,7 @@ class SignIn extends Component {
         </button>
       )
     } else {
-      return <button type="submit">Sign In</button>
+      return <button className="submit-button" type="submit">Sign In</button>
     }
   }
 
@@ -61,12 +62,13 @@ class SignIn extends Component {
     const { username, password } = this.state
 
     return (
-      <div className="row">
+      <>
         <div className="form-container">
-          <h3>Sign In</h3>
-          <form onSubmit={this.onSignIn}>
-            <label>Username</label>
+          <h3 className="sign-in-title">Sign In</h3>
+          <form className="sign-in-form" onSubmit={this.onSignIn}>
+            <label className="input-label">Username</label>
             <input
+              className="sign-in-input"
               required
               type="text"
               name="username"
@@ -74,8 +76,9 @@ class SignIn extends Component {
               placeholder="Enter Username"
               onChange={this.handleChange}
             />
-            <label>Password</label>
+            <label className="input-label">Password</label>
             <input
+              className="sign-in-input"
               required
               name="password"
               value={password}
@@ -86,7 +89,7 @@ class SignIn extends Component {
             {this.renderError()}
           </form>
         </div>
-      </div>
+      </>
     )
   }
 }
