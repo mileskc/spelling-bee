@@ -3,7 +3,7 @@ import api from '../services/apiConfiguration'
 import axios from 'axios'
 import HiveCell from './HiveCell'
 import '../styles/GameList.css'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 class GameList extends React.Component {
   constructor() {
@@ -31,20 +31,22 @@ class GameList extends React.Component {
 
   render() {
     return (
-      < div className="game-list">
-        <h1>Welcome back, {this.props.user.username}!</h1>
-        {this.state.games.map(game => 
-          <Link to={`/game-list/${game.gameNum}`}>
-          <div className="game-thumbnail">
-            <h1>Game {game.gameNum}</h1>
-            <img id="game-photo"src="https://i.imgur.com/PRRP96C.png"/>
-          </div>
-          </Link>
+      <>
+        <h1 className="welcome-user">Welcome back, {this.props.user.username}!</h1>
+        < div className="game-list">
+          {this.state.games.map(game =>
+            <Link className="game-link" to={`/game-list/${game.gameNum}`}>
+              <div className="game-thumbnail">
+                <img id="game-photo" src="https://i.imgur.com/PRRP96C.png" />
+                <h1 className="game-num">Game {game.gameNum}</h1>
+              </div>
+            </Link>
 
-        
-        )}
 
-      </div>
+          )}
+
+        </div>
+      </>
     )
   }
 }
