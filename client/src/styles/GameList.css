@@ -1,6 +1,14 @@
 .welcome-user {
   font-size: 20px;
   width: 100%;
+  font-family: Georgia;
+  font-weight: lighter;
+}
+
+span {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: bold;
+  color:#F8CD05;
 }
 
 #game-photo {

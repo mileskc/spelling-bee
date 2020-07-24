@@ -317,6 +317,12 @@ class Hive extends React.Component {
         letter: this.state.letters[5]
       }
     ]
+
+    const textStyle = {
+      fontFamily: 'Franklin',
+      fontWeight: 'bold',
+      fontSize: '25px'
+    }
     return (
       <div className="hiveComponent">
 
@@ -325,7 +331,7 @@ class Hive extends React.Component {
           <svg className="hive-cell">
             <polygon className="hex-cell middle" points="0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
             </polygon>
-            <text id={this.state.centerLetter} onClick={this.handleClick} fill="black" x="50" y="50" dy="10">{this.state.centerLetter}</text>
+            <text style={textStyle} id={this.state.centerLetter} onClick={this.handleClick} fill="black" x="55" y="60" >{this.state.centerLetter}</text>
           </svg>
           {hiveCellData.map(cell => {
             return (<HiveCell handleClick={this.handleClick} point={cell.point} letter={cell.letter} />)
