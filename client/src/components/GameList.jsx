@@ -32,7 +32,7 @@ class GameList extends React.Component {
   render() {
     return (
       <>
-        <h1 className="welcome-user">Welcome back, {this.props.user.username}!</h1>
+        <h1 className="welcome-user">Welcome back, <span>{this.props.user.username}</span>!</h1>
         < div className="game-list">
           {this.state.games.map(game =>
             <Link className="game-link" to={`/game-list/${game.gameNum}`}>
