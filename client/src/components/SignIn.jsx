@@ -73,7 +73,6 @@ class SignIn extends Component {
               type="text"
               name="username"
               value={username}
-              placeholder="Enter Username"
               onChange={this.handleChange}
             />
             <label className="input-label">Password</label>
@@ -83,7 +82,6 @@ class SignIn extends Component {
               name="password"
               value={password}
               type="password"
-              placeholder="Password"
               onChange={this.handleChange}
             />
             {this.renderError()}
