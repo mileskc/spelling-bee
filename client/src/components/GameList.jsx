@@ -1,7 +1,5 @@
 import React from 'react'
-import api from '../services/apiConfiguration'
 import axios from 'axios'
-import HiveCell from './HiveCell'
 import '../styles/GameList.css'
 import { Link } from 'react-router-dom'
 
@@ -16,8 +14,6 @@ class GameList extends React.Component {
 
   componentDidMount = () => {
     this.getAllGames()
-    console.log("called")
-
   }
 
   getAllGames = async () => {
@@ -25,8 +21,6 @@ class GameList extends React.Component {
     this.setState({
       games: resp.data.games
     })
-    console.log("get games called")
-    console.log(this.state.games)
   }
 
   render() {
@@ -41,10 +35,7 @@ class GameList extends React.Component {
                 <h1 className="game-num">Game {game.gameNum}</h1>
               </div>
             </Link>
-
-
           )}
-
         </div>
       </>
     )
