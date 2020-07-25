@@ -27,13 +27,11 @@ class SignUp extends Component {
     event.preventDefault()
 
     const { history, setUser } = this.props
-    console.log(this.props)
     signUp(this.state)
       .then(() => signIn(this.state))
       .then(res => setUser(res.user))
       .then(() => history.push('/game-list'))
       .catch(error => {
-        console.error(error)
         this.setState({
           email: '',
           password: '',

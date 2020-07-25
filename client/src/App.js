@@ -1,5 +1,4 @@
 import React from 'react';
-// import TitleBar from './components/TitleBar'
 import Hive from './components/Hive'
 import { Route, Switch, Redirect } from 'react-router-dom';
 import SignUp from './components/SignUp';
@@ -70,9 +69,6 @@ class App extends React.Component {
             )}
           />
         </Switch>
-        {/* <TitleBar/>
-     <Hive/> */}
-        {/* <Home/> */}
       </div>
     );
   }

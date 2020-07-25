@@ -26,22 +26,18 @@ class SignIn extends Component {
     event.preventDefault()
 
     const { history, setUser } = this.props
-    console.log(this.props)
     signIn(this.state)
       .then((res) => {
         setUser(res.user)
       })
       .then(() => history.push('/game-list'))
       .catch(error => {
-        console.error(error)
         this.setState({
           isError: true,
           errorMsg: 'Invalid Credentials',
           username: '',
           password: ''
         })
-        console.log(this.state)
-
       })
   }
 
@@ -60,7 +56,6 @@ class SignIn extends Component {
 
   render() {
     const { username, password } = this.state
-
     return (
       <>
         <div className="form-container">

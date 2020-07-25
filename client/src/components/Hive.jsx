@@ -1,9 +1,7 @@
 import React from 'react';
 import axios from 'axios'
 import '../styles/Hive.css'
-// import wordData from '../data.js'
 import Shuffle from './Shuffle'
-// import InputBar from './InputBar'
 import HiveCell from './HiveCell';
 import api from '../services/apiConfiguration';
 
@@ -21,11 +19,7 @@ class Hive extends React.Component {
 
   constructor(props) {
     super()
-    // let outerLetters = [...wordData[0].letters]
-    // outerLetters.shift()
     this.state = {
-      // centerLetter: [...wordData[0].letters[0]],
-      // letters: [...outerLetters],
       isGameCompleted: false,
       centerLetter: '',
       letters: [],
@@ -41,9 +35,7 @@ class Hive extends React.Component {
   }
 
   componentDidMount = () => {
-    // this.getAllGames()
     this.getGame()
-    console.log("get game called")
     this.setState({
       correctWords: []
     })
@@ -52,7 +44,6 @@ class Hive extends React.Component {
 
   getGame = async () => {
     // conditional - is there a user? then match params, else call game 1
-    // const gameNum = this.props.match.params.id
     let gameNum
     this.props.user ? gameNum = this.props.match.params.id : gameNum = 1
     const resp = await axios.get(`${baseURL}/api/games/${gameNum}`)
@@ -64,27 +55,10 @@ class Hive extends React.Component {
       currGame: resp.data.game,
       maxScore: resp.data.game.maxScore
     })
-    console.log(`mount ${resp.data.game.maxScore}`)
-    console.log(`mount ${resp.data.game.numWords}`)
     return resp
   }
 
-  // getAllGames = async () => {
-  //   const resp = await axios.get('http://localhost:3000/api/games')
-  //   let outerLetters = [...resp.data.games[0].letters]
-  //   let centerLetter = outerLetters.shift()
-  //   this.setState({
-  //     // centerLetter: resp.data.games[0].letters[0]
-  //     centerLetter: centerLetter,
-  //     letters: outerLetters,
-  //     // currGame: resp.data.games[0]
-  //   })
-  //   return resp
-  // }
-
   shuffleLetters = () => {
-    // let outerLetters = [...wordData[0].letters]
-    // outerLetters.shift()
     let outerLetters = [...this.state.letters]
 
     for (let i = 0; i < outerLetters.length; i++) {
@@ -102,7 +76,6 @@ class Hive extends React.Component {
   handleShuffle = (e) => {
     e.preventDefault()
     this.shuffleLetters()
-    // console.log(this.state.letters)
   }
 
   handleClick = (event) => {
@@ -110,31 +83,21 @@ class Hive extends React.Component {
       currentWord: this.state.currentWord + event.target.id,
       currentLetter: event.target.id,
     })
-    console.log("handle click called")
-    console.log(`hive currword ${this.state.currentWord}`)
-    console.log(`hive target id ${event.target.id}`)
-    // console.log(event.target.tagName)
   }
 
   handleChange = (event) => {
-    console.log(`change isBackspace ${this.state.isBackspace}`)
     if (this.state.isBackspace === true) {
       this.setState({
         currentWord: this.state.currentWord.slice(0, this.state.currentWord.length - 1),
         isBackspace: false
       })
-      console.log("it's true")
     } else {
       this.setState({
         isValid: false,
         currentLetter: event.target.id,
         currentWord: this.state.currentWord + event.target.value[event.target.value.length - 1]
-        // currentWord: this.state.currentWord + event.target.id
       })
     }
-    console.log(this.state.currentWord)
-    console.log(`target id ${event.target.id}`)
-
   }
 
   handleDelete = (event) => {
@@ -143,9 +106,6 @@ class Hive extends React.Component {
         isBackspace: true
       })
     }
-    console.log("delete called")
-    console.log(`delete key ${event.key}`)
-    console.log(`isBackspace ${this.state.isBackspace}`)
   }
 
   handleDeleteButton = (e) => {
@@ -156,9 +116,6 @@ class Hive extends React.Component {
   }
 
   checkValidity = () => {
-    console.log("check validity called")
-    // event.preventDefault()
-    // console.log(this.state.currentWord)
     if (this.state.currentWord.length < 4) {
       alert("Too short")
       this.setState({
@@ -185,7 +142,6 @@ class Hive extends React.Component {
           points: this.state.points + this.state.currentWord.length
         }, () => { this.checkGameLevel(this.state.points) })
       }
-      console.log(`this state points validity ${this.state.points}`)
     } else if (correctWords.includes(this.state.currentWord)) {
       alert("Already found")
       this.setState({
@@ -202,13 +158,7 @@ class Hive extends React.Component {
         currentWord: ''
       })
     }
-
-    console.log(`this state points validity ${this.state.points}`)
-
   }
-  // console.log(`center letter is ${this.props.centerLetter}`)
-  // console.log("called")
-
 
   checkGameLevel = (points) => {
     if (points === this.state.maxScore) {
@@ -256,21 +206,14 @@ class Hive extends React.Component {
         level: "Good Start"
       })
     }
-    console.log(this.state.points)
-    console.log(this.state.level)
-    console.log("GAME LEVEL CALLED")
-
   }
 
   checkGameCompletion = async () => {
-    console.log("check completion called")
     if (correctWords.length === this.state.currGame.wordList.length) {
       alert("You've found all the words!")
       if (this.props.user) {
         let user = this.props.user
-        console.log(`user.id is ${user.id}`)
         let userId = user.id
-        console.log(`id is ${userId}`)
         let gameNum = this.state.currGame.gameNum
         const resp = await api.put(`${baseURL}/api/users/${userId}`, { "id": userId, "gameNum": gameNum })
         this.setState({
@@ -285,10 +228,7 @@ class Hive extends React.Component {
     e.preventDefault()
     this.checkValidity()
     this.checkGameCompletion()
-    // this.checkGameLevel(this.state.points)
   }
-
-
 
   render() {
     const hiveCellData = [
@@ -361,40 +301,6 @@ class Hive extends React.Component {
             </div>
           </div>
         </div>
-        {/* <svg className = "hive-cell">
-        <polygon className="hex-cell" points = "0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
-        </polygon>
-        <text fill="black" x="50" y="50" dy="10">{this.state.letters[0]}</text>
-      </svg>
-      <svg className = "hive-cell">
-        <polygon className="hex-cell" points = "0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
-        </polygon>
-        <text fill="black" x="50" y="50" dy="10">{this.state.letters[1]}</text>
-      </svg>
-      <svg className = "hive-cell">
-        <polygon className="hex-cell" points = "0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
-        </polygon>
-        <text fill="black" x="50" y="50" dy="10">{this.state.letters[2]}</text>
-      </svg>
-      <svg className = "hive-cell">
-        <polygon className="hex-cell" points = "0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
-        </polygon>
-        <text fill="black" x="50" y="50" dy="10">{this.state.letters[3]}</text>
-      </svg>
-      <svg className = "hive-cell">
-        <polygon className="hex-cell" points = "0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
-        </polygon>
-        <text fill="black" x="50" y="50" dy="10">{this.state.letters[4]}</text>
-      </svg>
-      <svg className = "hive-cell">
-        <polygon className="hex-cell" points = "0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
-        </polygon>
-        <text fill="black" x="50" y="50" dy="10">{this.state.letters[5]}</text>
-      </svg> */}
-
-
-
-
       </div>
     )
   }
