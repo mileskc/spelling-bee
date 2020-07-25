@@ -35,7 +35,7 @@ class GameList extends React.Component {
         <h1 className="welcome-user">Welcome back, <span>{this.props.user.username}</span>!</h1>
         < div className="game-list">
           {this.state.games.map(game =>
-            <Link className="game-link" to={`/ game - list / ${game.gameNum}`}>
+            <Link className="game-link" to={`/game-list/${game.gameNum}`}>
               <div className="game-thumbnail">
                 <img id="game-photo" src="https://i.imgur.com/PRRP96C.png" />
                 <h1 className="game-num">Game {game.gameNum}</h1>
