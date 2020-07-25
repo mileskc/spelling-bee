@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { signUp, signIn } from '../services/auth'
+import '../styles/SignIn.css'
 
 class SignUp extends Component {
   constructor() {
@@ -26,13 +27,11 @@ class SignUp extends Component {
     event.preventDefault()
 
     const { history, setUser } = this.props
-    console.log(this.props)
     signUp(this.state)
       .then(() => signIn(this.state))
       .then(res => setUser(res.user))
       .then(() => history.push('/game-list'))
       .catch(error => {
-        console.error(error)
         this.setState({
           email: '',
           password: '',
@@ -52,7 +51,7 @@ class SignUp extends Component {
         </button>
       )
     } else {
-      return <button type="submit">Sign In</button>
+      return <button className="submit-button" type="submit">Sign In</button>
     }
   }
 
@@ -62,42 +61,42 @@ class SignUp extends Component {
     return (
       <div className="row">
         <div className="form-container">
-          <h3>Sign Up</h3>
-          <form onSubmit={this.onSignUp}>
-            <label>Username</label>
+          <h3 className="sign-in-title">Sign Up</h3>
+          <form className="sign-in-form" onSubmit={this.onSignUp}>
+            <label className="input-label">Username</label>
             <input
+              className="sign-in-input"
               required
               type="text"
               name="username"
               value={username}
-              placeholder="Enter username"
               onChange={this.handleChange}
             />
-            <label>Email address</label>
+            <label className="input-label">Email address</label>
             <input
+              className="sign-in-input"
               required
               type="email"
               name="email"
               value={email}
-              placeholder="Enter email"
               onChange={this.handleChange}
             />
-            <label>Password</label>
+            <label className="input-label">Password</label>
             <input
+              className="sign-in-input"
               required
               name="password"
               value={password}
               type="password"
-              placeholder="Password"
               onChange={this.handleChange}
             />
-            <label>Password Confirmation</label>
+            <label className="input-label">Password Confirmation</label>
             <input
+              className="sign-in-input"
               required
               name="passwordConfirmation"
               value={passwordConfirmation}
               type="password"
-              placeholder="Confirm Password"
               onChange={this.handleChange}
             />
             {this.renderError()}

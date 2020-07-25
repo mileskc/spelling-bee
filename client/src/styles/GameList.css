@@ -1,11 +1,37 @@
+.welcome-user {
+  font-size: 20px;
+  width: 100%;
+  font-family: Georgia;
+  font-weight: lighter;
+}
+
+span {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: bold;
+  color:#F8CD05;
+}
+
 #game-photo {
   width: 200px;
 }
 
 .game-thumbnail {
-  border: solid 1px gray;
-  margin: 50px;
+  border: solid 1px rgb(230,230,230);
+  text-align: center;
 }
 .game-list {
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
+
+.game-link {
+  text-decoration: none;
+  margin: 50px;
+}
+
+.game-num {
+  color: rgb(200,200,200);
+  font-size: 25px;
+}
+

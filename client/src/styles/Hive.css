@@ -8,7 +8,6 @@
 
 .scoring {
   width: 40%;
-  /* border: solid black 1px; */
 }
 
 #levels {
@@ -50,6 +49,7 @@
   height: 45vh;
   margin: 20px;
 }
+
 /* Hive shape */
 
 .hive {
@@ -67,6 +67,9 @@
   left: 30%;
   width: 40%;
   height: calc(100% / 3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .hive-cell text {
@@ -119,19 +122,14 @@ form {
   caret-color: rgb(255, 221, 0);
   font-size: 25px;
   transform: translate(0px, -100px);
-  /* font-weight: bolder; */
-  /* border: none; */
-  /* position: absolute;
-  top: 100%; */
 }
 
 #delButton, #enterButton, #swapButton {
-  /* margin-top: 350px; */
   position: absolute;
   top: 950%;
   border-radius: 30px;
   padding: 15px;
-  border:solid rgb(230,230,230) 1px;
+  border: solid rgb(230,230,230) 1px;
   background-color: white;
   font-size: 1rem;
 }
@@ -141,8 +139,6 @@ form {
   width: 95px;
 }
 #swapButton {
-  /* right: 80%; */
-  /* offset-position: -300px; */
   right: -11%;
   font-size: 2rem;
   padding: 5px;
@@ -152,12 +148,8 @@ form {
 }
 
 #enterButton {
-  /* position: absolute;
-  top: 600%; */
   left: 150%;
   width: 95px;
-  /* transform: translate(5px, 500px); */
-
 }
 
 @media (max-width: 600px) {
