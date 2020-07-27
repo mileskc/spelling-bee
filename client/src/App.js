@@ -5,6 +5,7 @@ import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import Home from './components/Home'
 import GameList from './components/GameList'
+import Nav from './components/Nav'
 import './App.css';
 import { verifyUser } from './services/auth'
 
@@ -38,6 +39,7 @@ class App extends React.Component {
     const { user } = this.state;
     return (
       <div className="App">
+        <Nav />
         <Switch>
           <Route exact path="/" render={props => <Home user={user} />} />
           <Route

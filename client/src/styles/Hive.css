@@ -3,7 +3,12 @@
 .hiveComponent {
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  margin-top: 10px;
+}
+
+.games-link {
+  margin: 20px 0px 20px 10px;
+  color: black;
 }
 
 .scoring {
@@ -54,9 +59,9 @@
 
 .hive {
   margin-top: 15%;
-  margin-left: 10%;
+  /* margin-left: 10%; */
   width: 90vw;
-  max-width: 330px;
+  max-width: 325px;
   height: 330px;
   position: relative;
 }
@@ -65,11 +70,12 @@
   position: absolute;
   top: calc(100% / 3);
   left: 30%;
-  width: 40%;
+  max-width: 40%;
   height: calc(100% / 3);
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 .hive-cell text {
@@ -105,6 +111,7 @@
 
 .hex-cell {
   fill: #e6e6e6;
+  
 }
 
 .hex-cell.middle {
@@ -114,19 +121,27 @@
 /* form */
 
 form {
-  position: relative;
-  width: 50%;
+  /* position: relative; */
+  /* width: 50%; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .wordInput {
   caret-color: rgb(255, 221, 0);
   font-size: 25px;
-  transform: translate(0px, -100px);
+  /* transform: translate(0px, -100px); */
+}
+
+.buttons {
+  margin: 10px;
 }
 
 #delButton, #enterButton, #swapButton {
-  position: absolute;
-  top: 950%;
+  /* position: absolute; */
+  /* top: 950%; */
+  margin: 5px;
   border-radius: 30px;
   padding: 15px;
   border: solid rgb(230,230,230) 1px;
@@ -135,11 +150,11 @@ form {
 }
 
 #delButton {
-  right: 55%;
+  /* right: 55%; */
   width: 95px;
 }
 #swapButton {
-  right: -11%;
+  /* right: -11%; */
   font-size: 2rem;
   padding: 5px;
   height: 50px;
@@ -148,7 +163,7 @@ form {
 }
 
 #enterButton {
-  left: 150%;
+  /* left: 150%; */
   width: 95px;
 }
 
@@ -156,14 +171,11 @@ form {
   .hiveComponent {
     flex-direction: column;
     margin-top: 100px;
-  }
-
-  #delButton, #enterButton, #swapButton {
-    top: 840%;
+    align-items: center;
   }
 
   .scoring {
-    margin-top: 150px;
+    margin-top: 15px;
     width: 90vw;
   }
 }
