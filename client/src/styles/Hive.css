@@ -174,10 +174,6 @@ form {
     align-items: center;
   }
 
-  #delButton, #enterButton, #swapButton {
-    /* top: 750%; */
-  }
-
   .scoring {
     margin-top: 15px;
     width: 90vw;

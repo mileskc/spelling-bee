@@ -3,6 +3,12 @@ import axios from 'axios'
 import '../styles/GameList.css'
 import { Link } from 'react-router-dom'
 
+let baseURL
+if (process.env.NODE_ENV === 'development') {
+  baseURL = 'http://localhost:3000'
+} else {
+  baseURL = 'http://spelling-bee-clone-backend.herokuapp.com'
+}
 class GameList extends React.Component {
   constructor() {
     super()
@@ -17,7 +23,7 @@ class GameList extends React.Component {
   }
 
   getAllGames = async () => {
-    const resp = await axios.get(`http://localhost:3000/api/games`)
+    const resp = await axios.get(`${baseURL}/api/games`)
     this.setState({
       games: resp.data.games
     })
