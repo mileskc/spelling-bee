@@ -231,6 +231,7 @@ class Hive extends React.Component {
     this.checkGameCompletion()
   }
 
+
   render() {
     const hiveCellData = [
       {
@@ -264,51 +265,62 @@ class Hive extends React.Component {
       fontWeight: 'bold',
       fontSize: '25px'
     }
-    return (
-      <>
-        {this.props.user ? <Link className="games-link" to="/game-list">&#8592; Games</Link> : null}
-        <div className="hiveComponent">
-          <form>
-            <input className="wordInput" id={this.state.currentLetter} onChange={this.handleChange}
-              onKeyDown={this.handleDelete} name="currentWord" value={this.state.currentWord} />
-            <div className="hive">
 
-              <svg className="hive-cell">
-                <polygon className="hex-cell middle" points="0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
-                </polygon>
-                <text style={textStyle} id={this.state.centerLetter} onClick={this.handleClick} fill="black" x="55" y="60" >{this.state.centerLetter}</text>
-              </svg>
-              {hiveCellData.map(cell => {
-                return (<HiveCell handleClick={this.handleClick} point={cell.point} letter={cell.letter} />)
-              }
-              )}
+    {
+      if (Object.keys(this.state.currGame).length === 0) {
+        return (
+          <div className="loading-page">
+            <h1>Loading...</h1>
+          </div>
+        )
+      } else {
+        return (
+          <>
+            {this.props.user ? <Link className="games-link" to="/game-list">&#8592; Games</Link> : null}
+            <div className="hiveComponent">
+              <form>
+                <input className="wordInput" id={this.state.currentLetter} onChange={this.handleChange}
+                  onKeyDown={this.handleDelete} name="currentWord" value={this.state.currentWord} />
+                <div className="hive">
 
-            </div>
-            <div className="buttons">
-              <button id="enterButton" type="submit" onClick={this.handleSubmit}>Enter</button>
-              <Shuffle centerLetter={this.state.centerLetter} handleShuffle={this.handleShuffle} />
-              <button id="delButton" onClick={this.handleDeleteButton}>Delete</button>
-            </div>
+                  <svg className="hive-cell">
+                    <polygon className="hex-cell middle" points="0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
+                    </polygon>
+                    <text style={textStyle} id={this.state.centerLetter} onClick={this.handleClick} fill="black" x="55" y="60" >{this.state.centerLetter}</text>
+                  </svg>
+                  {hiveCellData.map(cell => {
+                    return (<HiveCell handleClick={this.handleClick} point={cell.point} letter={cell.letter} />)
+                  }
+                  )}
 
-          </form>
+                </div>
+                <div className="buttons">
+                  <button id="enterButton" type="submit" onClick={this.handleSubmit}>Enter</button>
+                  <Shuffle centerLetter={this.state.centerLetter} handleShuffle={this.handleShuffle} />
+                  <button id="delButton" onClick={this.handleDeleteButton}>Delete</button>
+                </div>
 
-          <div className="scoring">
-            <div id="levels">
-              <p id="levelName">{this.state.level && this.state.level}</p>
-              <p id="pointsNum">{this.state.points}</p>
-            </div>
-            <div id="correctWords">
-              <p id="foundWordsLabel">You have found {this.state.correctWords.length} words</p>
-              <div className="correctWordList">
-                {this.state.correctWords.map(word => {
-                  return <p>{word}</p>
-                })}
+              </form>
+
+              <div className="scoring">
+                <div id="levels">
+                  <p id="levelName">{this.state.level && this.state.level}</p>
+                  <p id="pointsNum">{this.state.points}</p>
+                </div>
+                <div id="correctWords">
+                  <p id="foundWordsLabel">You have found {this.state.correctWords.length} words</p>
+                  <div className="correctWordList">
+                    {this.state.correctWords.map(word => {
+                      return <p>{word}</p>
+                    })}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </>
-    )
+          </>
+        )
+      }
+    }
   }
 }
 
