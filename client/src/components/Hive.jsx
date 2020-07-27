@@ -3,6 +3,7 @@ import axios from 'axios'
 import '../styles/Hive.css'
 import Shuffle from './Shuffle'
 import HiveCell from './HiveCell';
+import { Link } from 'react-router-dom'
 import api from '../services/apiConfiguration';
 
 let baseURL
@@ -264,44 +265,46 @@ class Hive extends React.Component {
       fontSize: '25px'
     }
     return (
-      <div className="hiveComponent">
+      <>
+        {this.props.user ? <Link className="games-link" to="/game-list">&#8592; Games</Link> : null}
+        <div className="hiveComponent">
+          <div className="hive">
 
-        <div className="hive">
+            <svg className="hive-cell">
+              <polygon className="hex-cell middle" points="0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
+              </polygon>
+              <text style={textStyle} id={this.state.centerLetter} onClick={this.handleClick} fill="black" x="55" y="60" >{this.state.centerLetter}</text>
+            </svg>
+            {hiveCellData.map(cell => {
+              return (<HiveCell handleClick={this.handleClick} point={cell.point} letter={cell.letter} />)
+            }
+            )}
 
-          <svg className="hive-cell">
-            <polygon className="hex-cell middle" points="0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
-            </polygon>
-            <text style={textStyle} id={this.state.centerLetter} onClick={this.handleClick} fill="black" x="55" y="60" >{this.state.centerLetter}</text>
-          </svg>
-          {hiveCellData.map(cell => {
-            return (<HiveCell handleClick={this.handleClick} point={cell.point} letter={cell.letter} />)
-          }
-          )}
+            <form>
+              <input className="wordInput" id={this.state.currentLetter} onChange={this.handleChange}
+                onKeyDown={this.handleDelete} name="currentWord" value={this.state.currentWord} />
+              <button id="enterButton" type="submit" onClick={this.handleSubmit}>Enter</button>
+              <button id="delButton" onClick={this.handleDeleteButton}>Delete</button>
+              <Shuffle centerLetter={this.state.centerLetter} handleShuffle={this.handleShuffle} />
+            </form>
 
-          <form>
-            <input className="wordInput" id={this.state.currentLetter} onChange={this.handleChange}
-              onKeyDown={this.handleDelete} name="currentWord" value={this.state.currentWord} />
-            <button id="enterButton" type="submit" onClick={this.handleSubmit}>Enter</button>
-            <button id="delButton" onClick={this.handleDeleteButton}>Delete</button>
-            <Shuffle centerLetter={this.state.centerLetter} handleShuffle={this.handleShuffle} />
-          </form>
-
-        </div>
-        <div className="scoring">
-          <div id="levels">
-            <p id="levelName">{this.state.level && this.state.level}</p>
-            <p id="pointsNum">{this.state.points}</p>
           </div>
-          <div id="correctWords">
-            <p id="foundWordsLabel">You have found {this.state.correctWords.length} words</p>
-            <div className="correctWordList">
-              {this.state.correctWords.map(word => {
-                return <p>{word}</p>
-              })}
+          <div className="scoring">
+            <div id="levels">
+              <p id="levelName">{this.state.level && this.state.level}</p>
+              <p id="pointsNum">{this.state.points}</p>
+            </div>
+            <div id="correctWords">
+              <p id="foundWordsLabel">You have found {this.state.correctWords.length} words</p>
+              <div className="correctWordList">
+                {this.state.correctWords.map(word => {
+                  return <p>{word}</p>
+                })}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </>
     )
   }
 }
