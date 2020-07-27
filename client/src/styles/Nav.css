@@ -1,12 +1,23 @@
 hr {
   background-color: rgb(230,230,230);
   height: 1px;
-  border:none
+  border:none;
+  margin: 8px 0px;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bee-logo {
+  width: 50px;
+  margin-left: 10px;
 }
 
 .link-container {
-  display: flex;
-  justify-content: flex-end;
+  margin-right: 10px;
 }
 
 .sign-up, .sign-in {

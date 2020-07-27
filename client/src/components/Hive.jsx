@@ -3,6 +3,7 @@ import axios from 'axios'
 import '../styles/Hive.css'
 import Shuffle from './Shuffle'
 import HiveCell from './HiveCell';
+import { Link } from 'react-router-dom'
 import api from '../services/apiConfiguration';
 
 let baseURL
@@ -265,7 +266,7 @@ class Hive extends React.Component {
     }
     return (
       <div className="hiveComponent">
-
+        {/* {this.props.user ? <Link to="/game-list">&#8592; Games</Link> : null} */}
         <div className="hive">
 
           <svg className="hive-cell">
