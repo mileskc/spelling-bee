@@ -12,7 +12,7 @@ The backend was architected with MongoDB and Express, with basic auth structure 
 
 ## Gameplay
 
-The object of the game is to find as many words as possible that are 4 letters or longer and include the center yellow letter. In every game there is at least one pangram that uses all of the letters in the hive. Letters can be repeated in words, and pangrams might include repeated letters.
+The object of the game is to find as many words as possible that are 4 letters or longer and include the center yellow letter. In every game there is at least one pangram that uses all of the letters in the hive. Letters can be repeated in words, and pangrams might include repeated letters. Users have the option to type in the input box or to click on the letters in the hive. 
 
 ## Levels
 
