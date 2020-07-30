@@ -81,9 +81,10 @@ class Hive extends React.Component {
 
   handleClick = (event) => {
     this.setState({
-      currentWord: this.state.currentWord + event.target.id,
+      currentWord: this.state.currentWord + event.target.id.toLowerCase(),
       currentLetter: event.target.id,
     })
+    console.log(this.state.currentWord)
   }
 
   handleChange = (event) => {
@@ -95,8 +96,8 @@ class Hive extends React.Component {
     } else {
       this.setState({
         isValid: false,
-        currentLetter: event.target.id,
-        currentWord: this.state.currentWord + event.target.value[event.target.value.length - 1]
+        currentLetter: event.target.id.toLowerCase(),
+        currentWord: this.state.currentWord + event.target.value[event.target.value.length - 1].toLowerCase()
       })
     }
   }
