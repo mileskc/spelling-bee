@@ -84,7 +84,6 @@ class Hive extends React.Component {
       currentWord: this.state.currentWord + event.target.id.toLowerCase(),
       currentLetter: event.target.id,
     })
-    console.log(this.state.currentWord)
   }
 
   handleChange = (event) => {
