@@ -8,7 +8,7 @@ This app is a clone of the popular NYT game, [Spelling Bee](https://www.nytimes.
 
 ## Technologies
 
-The backend was architected with MongoDB and Express, with basic auth structure using JSON web tokens and bcrypt in tact in anticipation of Phase 2 release. The front end was created with React, and React Router for the Phase 2 work in progress. The game data has been taken from actual NYT spelling bee games that I completed.
+The backend was architected with MongoDB and Express, with basic auth structure using JSON web tokens and bcrypt. The front end was created with React Router and the game data has been taken from actual NYT spelling bee games that I completed. I considered using a dictionary API to create the games but ultimately determined that this would be the most efficient way to customize the data how I wanted it.
 
 ## Gameplay
 
@@ -22,6 +22,6 @@ The points are based off the NYT rules:
 Longer words earn 1 point per letter.
 Each puzzle includes at least one “pangram” which uses every letter. These are worth 7 extra points!"
 
-Levels names are also corresponding to the NYT level and are calculated based on the estimated percentage of total available points.
+Level names correspond to the NYT levels and are calculated based on the estimated percentage of total available points.
 
 This has been a fun project and I look forward to finishing the next version of this clone.
