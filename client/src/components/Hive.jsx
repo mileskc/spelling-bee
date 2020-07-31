@@ -4,6 +4,7 @@ import '../styles/Hive.css'
 import Shuffle from './Shuffle'
 import HiveCell from './HiveCell';
 import Loading from './Loading'
+import InputBar from './InputBar'
 import { Link } from 'react-router-dom'
 import api from '../services/apiConfiguration';
 
@@ -276,8 +277,7 @@ class Hive extends React.Component {
             {this.props.user ? <Link className="games-link" to="/game-list">&#8592; Games</Link> : null}
             <div className="hiveComponent">
               <form>
-                <input className="wordInput" id={this.state.currentLetter} onChange={this.handleChange}
-                  onKeyDown={this.handleDelete} name="currentWord" value={this.state.currentWord} />
+                <InputBar handleDelete={this.handleDelete} handleChange={this.handleChange} currentWord={this.state.currentWord} currentLetter={this.state.currentLetter} />
                 <div className="hive">
 
                   <svg className="hive-cell">

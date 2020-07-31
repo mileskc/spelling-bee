@@ -135,10 +135,16 @@ form {
   align-items: center;
 }
 
-.wordInput {
+.word-input {
   caret-color: rgb(255, 221, 0);
   font-size: 25px;
-  /* transform: translate(0px, -100px); */
+  border: solid 1px rgb(230,230,230);
+  border-radius: 20px;
+  text-align: center;
+}
+
+.word-input:focus {
+  outline: none;
 }
 
 .buttons {
