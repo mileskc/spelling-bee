@@ -157,6 +157,10 @@ form {
   font-size: 1rem;
 }
 
+#del-button:focus, #enter-button:focus, #swap-button:focus{
+  outline: none;
+}
+
 #del-button {
   width: 95px;
 }
