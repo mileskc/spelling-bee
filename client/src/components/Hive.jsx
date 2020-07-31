@@ -1,10 +1,10 @@
 import React from 'react';
 import axios from 'axios'
 import '../styles/Hive.css'
-import Shuffle from './Shuffle'
 import HiveCell from './HiveCell';
 import Loading from './Loading'
 import InputBar from './InputBar'
+import Buttons from './Buttons'
 import { Link } from 'react-router-dom'
 import api from '../services/apiConfiguration';
 
@@ -291,12 +291,7 @@ class Hive extends React.Component {
                   )}
 
                 </div>
-                <div className="buttons">
-                  <button id="enter-button" type="submit" onClick={this.handleSubmit}>Enter</button>
-                  <Shuffle centerLetter={this.state.centerLetter} handleShuffle={this.handleShuffle} />
-                  <button id="del-button" onClick={this.handleDeleteButton}>Delete</button>
-                </div>
-
+                <Buttons handleSubmit={this.handleSubmit} handleShuffle={this.handleShuffle} centerLetter={this.state.centerLetter} handleDeleteButton={this.handleDeleteButton} />
               </form>
 
               <div className="scoring">
