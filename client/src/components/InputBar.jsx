@@ -6,7 +6,7 @@ const InputBar = (props) => {
 
   return (
     <div>
-      <input autofocus onKeyDown={props.handleDelete} className="word-input" id={props.currentLetter} onChange={props.handleChange} name="currentWord" value={props.currentWord} />
+      <input autoFocus onKeyDown={props.handleDelete} className="word-input" id={props.currentLetter} onChange={props.handleChange} name="currentWord" value={props.currentWord} />
     </div>
   )
 }
