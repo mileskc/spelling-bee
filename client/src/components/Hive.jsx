@@ -3,7 +3,7 @@ import axios from 'axios'
 import '../styles/Hive.css'
 import Shuffle from './Shuffle'
 import HiveCell from './HiveCell';
-import Loading from './Loading'
+import InputBar from './InputBar'
 import { Link } from 'react-router-dom'
 import api from '../services/apiConfiguration';
 
@@ -100,6 +100,8 @@ class Hive extends React.Component {
         currentWord: this.state.currentWord + event.target.value[event.target.value.length - 1].toLowerCase()
       })
     }
+    console.log(this.state.currentWord)
+    console.log(this.state.isBackspace)
   }
 
   handleDelete = (event) => {
@@ -269,17 +271,19 @@ class Hive extends React.Component {
 
     {
       if (Object.keys(this.state.currGame).length === 0) {
-        return <Loading />
+        return (
+          <div className="loading-page">
+            <h1>Loading...</h1>
+          </div>
+        )
       } else {
         return (
           <>
             {this.props.user ? <Link className="games-link" to="/game-list">&#8592; Games</Link> : null}
             <div className="hiveComponent">
               <form>
-                <input className="wordInput" id={this.state.currentLetter} onChange={this.handleChange}
-                  onKeyDown={this.handleDelete} name="currentWord" value={this.state.currentWord} />
+                <InputBar handleDelete={this.handleDelete} handleChange={this.handleChange} currentWord={this.state.currentWord} currentLetter={this.state.currentLetter} />
                 <div className="hive">
-
                   <svg className="hive-cell">
                     <polygon className="hex-cell middle" points="0,52 30,0 90,0 120,52 90,104 30,104" stroke="white">
                     </polygon>
