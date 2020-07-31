@@ -7,7 +7,7 @@
 
 /* Component layout */
 
-.hiveComponent {
+.hive-component {
   display: flex;
   justify-content: space-around;
   margin-top: 10px;
@@ -28,12 +28,12 @@
   justify-content: space-evenly;
 }
 
-#levelName {
+#level-name {
   font-weight: 700;
   font-size: 1rem;
 }
 
-#pointsNum {
+#points-num {
   background-color: #F8CD05;
   line-height: 32px;
   font-size: 10px;
@@ -43,18 +43,18 @@
   border-radius: 50%;
 }
 
-#foundWordsLabel {
+#found-words-label {
   margin-left: 20px;
   font-size: 14px;
 }
 
-#correctWords {
+#correct-words {
   border: solid rgb(230,230,230) 1px;
   border-radius: 5px;
   height: 50vh;
 }
 
-.correctWordList {
+.correct-wordlist {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -66,7 +66,6 @@
 
 .hive {
   margin-top: 15%;
-  /* margin-left: 10%; */
   width: 90vw;
   max-width: 325px;
   height: 330px;
@@ -128,26 +127,28 @@
 /* form */
 
 form {
-  /* position: relative; */
-  /* width: 50%; */
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.wordInput {
+.word-input {
   caret-color: rgb(255, 221, 0);
   font-size: 25px;
-  /* transform: translate(0px, -100px); */
+  border: solid 1px rgb(230,230,230);
+  border-radius: 20px;
+  text-align: center;
+}
+
+.word-input:focus {
+  outline: none;
 }
 
 .buttons {
   margin: 10px;
 }
 
-#delButton, #enterButton, #swapButton {
-  /* position: absolute; */
-  /* top: 950%; */
+#del-button, #enter-button, #swap-button {
   margin: 5px;
   border-radius: 30px;
   padding: 15px;
@@ -156,12 +157,14 @@ form {
   font-size: 1rem;
 }
 
-#delButton {
-  /* right: 55%; */
+#del-button:focus, #enter-button:focus, #swap-button:focus{
+  outline: none;
+}
+
+#del-button {
   width: 95px;
 }
-#swapButton {
-  /* right: -11%; */
+#swap-button {
   font-size: 2rem;
   padding: 5px;
   height: 50px;
@@ -169,13 +172,12 @@ form {
   line-height: 12px;
 }
 
-#enterButton {
-  /* left: 150%; */
+#enter-button {
   width: 95px;
 }
 
 @media (max-width: 600px) {
-  .hiveComponent {
+  .hive-component {
     flex-direction: column;
     margin-top: 100px;
     align-items: center;
