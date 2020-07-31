@@ -37,7 +37,7 @@ class Hive extends React.Component {
   }
 
   componentDidMount = () => {
-    // this.getGame()
+    this.getGame()
     this.setState({
       correctWords: []
     })
