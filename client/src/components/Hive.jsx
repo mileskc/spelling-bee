@@ -3,6 +3,7 @@ import axios from 'axios'
 import '../styles/Hive.css'
 import Shuffle from './Shuffle'
 import HiveCell from './HiveCell';
+import Loading from './Loading'
 import { Link } from 'react-router-dom'
 import api from '../services/apiConfiguration';
 
@@ -268,11 +269,7 @@ class Hive extends React.Component {
 
     {
       if (Object.keys(this.state.currGame).length === 0) {
-        return (
-          <div className="loading-page">
-            <h1>Loading...</h1>
-          </div>
-        )
+        return <Loading />
       } else {
         return (
           <>
