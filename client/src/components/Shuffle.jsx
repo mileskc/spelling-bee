@@ -4,7 +4,7 @@ import '../styles/Hive.css'
 const Shuffle = (props) => {
   return (
     <>
-      <button id="swapButton" onClick={props.handleShuffle}>&#8644;</button>
+      <button id="swap-button" onClick={props.handleShuffle}>&#8644;</button>
     </>
   )
 }

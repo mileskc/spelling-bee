@@ -275,7 +275,7 @@ class Hive extends React.Component {
         return (
           <>
             {this.props.user ? <Link className="games-link" to="/game-list">&#8592; Games</Link> : null}
-            <div className="hiveComponent">
+            <div className="hive-component">
               <form>
                 <InputBar handleDelete={this.handleDelete} handleChange={this.handleChange} currentWord={this.state.currentWord} currentLetter={this.state.currentLetter} />
                 <div className="hive">
@@ -292,21 +292,21 @@ class Hive extends React.Component {
 
                 </div>
                 <div className="buttons">
-                  <button id="enterButton" type="submit" onClick={this.handleSubmit}>Enter</button>
+                  <button id="enter-button" type="submit" onClick={this.handleSubmit}>Enter</button>
                   <Shuffle centerLetter={this.state.centerLetter} handleShuffle={this.handleShuffle} />
-                  <button id="delButton" onClick={this.handleDeleteButton}>Delete</button>
+                  <button id="del-button" onClick={this.handleDeleteButton}>Delete</button>
                 </div>
 
               </form>
 
               <div className="scoring">
                 <div id="levels">
-                  <p id="levelName">{this.state.level && this.state.level}</p>
-                  <p id="pointsNum">{this.state.points}</p>
+                  <p id="level-name">{this.state.level && this.state.level}</p>
+                  <p id="points-num">{this.state.points}</p>
                 </div>
-                <div id="correctWords">
-                  <p id="foundWordsLabel">You have found {this.state.correctWords.length} words</p>
-                  <div className="correctWordList">
+                <div id="correct-words">
+                  <p id="found-words-label">You have found {this.state.correctWords.length} words</p>
+                  <div className="correct-wordlist">
                     {this.state.correctWords.map(word => {
                       return <p>{word}</p>
                     })}
