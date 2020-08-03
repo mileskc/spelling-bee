@@ -101,6 +101,7 @@ class Hive extends React.Component {
         currentWord: this.state.currentWord + event.target.value[event.target.value.length - 1].toLowerCase()
       })
     }
+    console.log(this.state.isBackspace)
   }
 
   handleDelete = (event) => {
@@ -276,7 +277,7 @@ class Hive extends React.Component {
           <>
             {this.props.user ? <Link className="games-link" to="/game-list">&#8592; Games</Link> : null}
             <div className="hive-component">
-              <form>
+              <form onSubmit={this.handleSubmit}>
                 <InputBar handleDelete={this.handleDelete} handleChange={this.handleChange} currentWord={this.state.currentWord} currentLetter={this.state.currentLetter} />
                 <div className="hive">
 
