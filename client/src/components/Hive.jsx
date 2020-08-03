@@ -101,7 +101,6 @@ class Hive extends React.Component {
         currentWord: this.state.currentWord + event.target.value[event.target.value.length - 1].toLowerCase()
       })
     }
-    console.log(this.state.isBackspace)
   }
 
   handleDelete = (event) => {
