@@ -7,20 +7,8 @@ import InputBar from './InputBar'
 import Buttons from './Buttons'
 import { Link } from 'react-router-dom'
 import api from '../services/apiConfiguration';
-
-let baseURL
-if (process.env.NODE_ENV === 'development') {
-  baseURL = 'http://localhost:3000'
-} else {
-  baseURL = 'http://spelling-bee-clone-backend.herokuapp.com'
-}
-let correctWords = []
-
-
 class Hive extends React.Component {
-
-
-  constructor(props) {
+  constructor() {
     super()
     this.state = {
       isGameCompleted: false,
@@ -28,7 +16,7 @@ class Hive extends React.Component {
       letters: [],
       currentWord: '',
       currentLetter: '',
-      correctWords: correctWords,
+      correctWords: [],
       isBackspace: false,
       currGame: {},
       level: "Beginner",
@@ -42,14 +30,13 @@ class Hive extends React.Component {
     this.setState({
       correctWords: []
     })
-    correctWords = []
   }
 
   getGame = async () => {
     // conditional - is there a user? then match params, else call game 1
     let gameNum
     this.props.user ? gameNum = this.props.match.params.id : gameNum = 1
-    const resp = await axios.get(`${baseURL}/api/games/${gameNum}`)
+    const resp = await api.get(`/games/${gameNum}`)
     let outerLetters = [...resp.data.game.letters]
     let centerLetter = outerLetters.shift()
     this.setState({
@@ -63,13 +50,11 @@ class Hive extends React.Component {
 
   shuffleLetters = () => {
     let outerLetters = [...this.state.letters]
-
     for (let i = 0; i < outerLetters.length; i++) {
       let j = Math.floor(Math.random() * Math.floor(outerLetters.length))
       let temp = outerLetters[i]
       outerLetters[i] = outerLetters[j]
       outerLetters[j] = temp
-
     }
     this.setState({
       letters: outerLetters
@@ -125,11 +110,10 @@ class Hive extends React.Component {
       this.setState({
         currentWord: ''
       })
-    } else if (this.state.currGame.wordList.includes(this.state.currentWord) && !correctWords.includes(this.state.currentWord)) {
-      correctWords.push(this.state.currentWord)
+    } else if (this.state.currGame.wordList.includes(this.state.currentWord) && !this.state.correctWords.includes(this.state.currentWord)) {
       this.setState({
         isValid: true,
-        correctWords: correctWords,
+        correctWords: [...this.state.correctWords, this.state.currentWord],
         currentWord: ''
       })
       if (this.state.currentWord.length === 4) {
@@ -146,7 +130,7 @@ class Hive extends React.Component {
           points: this.state.points + this.state.currentWord.length
         }, () => { this.checkGameLevel(this.state.points) })
       }
-    } else if (correctWords.includes(this.state.currentWord)) {
+    } else if (this.state.correctWords.includes(this.state.currentWord)) {
       alert("Already found")
       this.setState({
         currentWord: ''
@@ -168,7 +152,7 @@ class Hive extends React.Component {
     if (points === this.state.maxScore) {
       this.setState({
         level: "Queen Bee"
-      })
+      }, () => { this.checkGameCompletion() })
     }
     else if (points >= this.state.genius) {
       this.setState({
@@ -213,13 +197,14 @@ class Hive extends React.Component {
   }
 
   checkGameCompletion = async () => {
-    if (correctWords.length === this.state.currGame.wordList.length) {
+    // if (this.state.correctWords.length === this.state.currGame.wordList.length) 
+    if (this.state.level === "Queen Bee") {
       alert("You've found all the words!")
       if (this.props.user) {
         let user = this.props.user
         let userId = user.id
         let gameNum = this.state.currGame.gameNum
-        const resp = await api.put(`${baseURL}/api/users/${userId}`, { "id": userId, "gameNum": gameNum })
+        const resp = await api.put(`/users/${userId}`, { "id": userId, "gameNum": gameNum })
         this.setState({
           isGameCompleted: true
         })
@@ -231,37 +216,10 @@ class Hive extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     this.checkValidity()
-    this.checkGameCompletion()
   }
 
 
   render() {
-    const hiveCellData = [
-      {
-        point: "0,52 30,0 90,0 120,52 90,104 30,104",
-        letter: this.state.letters[0]
-      },
-      {
-        point: "0,52 30,0 90,0 120,52 90,104 30,104",
-        letter: this.state.letters[1]
-      },
-      {
-        point: "0,52 30,0 90,0 120,52 90,104 30,104",
-        letter: this.state.letters[2]
-      },
-      {
-        point: "0,52 30,0 90,0 120,52 90,104 30,104",
-        letter: this.state.letters[3]
-      },
-      {
-        point: "0,52 30,0 90,0 120,52 90,104 30,104",
-        letter: this.state.letters[4]
-      },
-      {
-        point: "0,52 30,0 90,0 120,52 90,104 30,104",
-        letter: this.state.letters[5]
-      }
-    ]
 
     const textStyle = {
       fontFamily: 'Franklin',
@@ -286,8 +244,8 @@ class Hive extends React.Component {
                     </polygon>
                     <text style={textStyle} id={this.state.centerLetter} onClick={this.handleClick} fill="black" x="55" y="60" >{this.state.centerLetter}</text>
                   </svg>
-                  {hiveCellData.map(cell => {
-                    return (<HiveCell handleClick={this.handleClick} point={cell.point} letter={cell.letter} />)
+                  {this.state.letters.map(letter => {
+                    return (<HiveCell handleClick={this.handleClick} letter={letter} />)
                   }
                   )}
 
