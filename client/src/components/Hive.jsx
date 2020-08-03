@@ -7,8 +7,6 @@ import InputBar from './InputBar'
 import Buttons from './Buttons'
 import { Link } from 'react-router-dom'
 import api from '../services/apiConfiguration';
-
-let correctWords = []
 class Hive extends React.Component {
   constructor() {
     super()
@@ -18,7 +16,7 @@ class Hive extends React.Component {
       letters: [],
       currentWord: '',
       currentLetter: '',
-      correctWords: correctWords,
+      correctWords: [],
       isBackspace: false,
       currGame: {},
       level: "Beginner",
@@ -32,7 +30,6 @@ class Hive extends React.Component {
     this.setState({
       correctWords: []
     })
-    correctWords = []
   }
 
   getGame = async () => {
@@ -113,11 +110,10 @@ class Hive extends React.Component {
       this.setState({
         currentWord: ''
       })
-    } else if (this.state.currGame.wordList.includes(this.state.currentWord) && !correctWords.includes(this.state.currentWord)) {
-      correctWords.push(this.state.currentWord)
+    } else if (this.state.currGame.wordList.includes(this.state.currentWord) && !this.state.correctWords.includes(this.state.currentWord)) {
       this.setState({
         isValid: true,
-        correctWords: correctWords,
+        correctWords: [...this.state.correctWords, this.state.currentWord],
         currentWord: ''
       })
       if (this.state.currentWord.length === 4) {
@@ -134,7 +130,7 @@ class Hive extends React.Component {
           points: this.state.points + this.state.currentWord.length
         }, () => { this.checkGameLevel(this.state.points) })
       }
-    } else if (correctWords.includes(this.state.currentWord)) {
+    } else if (this.state.correctWords.includes(this.state.currentWord)) {
       alert("Already found")
       this.setState({
         currentWord: ''
@@ -156,7 +152,7 @@ class Hive extends React.Component {
     if (points === this.state.maxScore) {
       this.setState({
         level: "Queen Bee"
-      })
+      }, () => { this.checkGameCompletion() })
     }
     else if (points >= this.state.genius) {
       this.setState({
@@ -201,7 +197,8 @@ class Hive extends React.Component {
   }
 
   checkGameCompletion = async () => {
-    if (correctWords.length === this.state.currGame.wordList.length) {
+    // if (this.state.correctWords.length === this.state.currGame.wordList.length) 
+    if (this.state.level === "Queen Bee") {
       alert("You've found all the words!")
       if (this.props.user) {
         let user = this.props.user
@@ -219,7 +216,6 @@ class Hive extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     this.checkValidity()
-    this.checkGameCompletion()
   }
 
 
