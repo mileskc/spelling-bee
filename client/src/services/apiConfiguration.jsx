@@ -5,8 +5,8 @@ const JwtToken = localStorage.getItem('token') || null
 let apiUrl
 
 const apiUrls = {
-  production: 'http://spelling-bee-clone-backend.herokuapp.com/api',
-  development: 'http://localhost:3000/api'
+  production: 'https://spelling-bee-clone-backend.herokuapp.com/api',
+  development: 'https://localhost:3000/api'
 }
 
 if (window.location.hostname === 'localhost') {

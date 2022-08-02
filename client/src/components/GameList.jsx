@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom'
 
 let baseURL
 if (process.env.NODE_ENV === 'development') {
-  baseURL = 'http://localhost:3000'
+  baseURL = 'https://localhost:3000'
 } else {
-  baseURL = 'http://spelling-bee-clone-backend.herokuapp.com'
+  baseURL = 'https://spelling-bee-clone-backend.herokuapp.com'
 }
 class GameList extends React.Component {
   constructor() {
